@@ -3,7 +3,7 @@
 The extension and both server implementations derive from Sean Davis's Live Questions for Quarto revealjs, version 1.2.0, tag commit c45a0dde2ccb556943a46a36126a7608d0c0750e:
 https://github.com/seandavi/quarto-revealjs-live-questions/tree/v1.2.0
 
-The MIT licence is retained in LICENSE. The bundled QR generator's notice is retained in _extensions/live-questions/THIRD_PARTY_NOTICES.md. Runtime dependencies are Hono, @hono/node-server, ws and qrcode-generator. Their original licence banners remain in the generated builds.
+The MIT licence is retained in LICENSE. The bundled QR generator's notice is retained in _extensions/masterclass/live-questions/THIRD_PARTY_NOTICES.md. Runtime dependencies are Hono, @hono/node-server, ws and qrcode-generator. Their original licence banners remain in the generated builds.
 
 Local changes:
 

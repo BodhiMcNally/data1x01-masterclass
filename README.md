@@ -135,7 +135,7 @@ python scripts/build_teaching_guide.py
 | Start_Live_Questions.bat / .command | Local session launcher |
 | scripts/launch_live_questions.py | Server selection, temporary link, local presentation and optional Shiny |
 | scripts/deploy_live_questions.py | One-time Cloudflare Worker deployment |
-| _extensions/live-questions/ | Native Quarto filter, browser plugin and licences |
+| _extensions/masterclass/live-questions/ | Native Quarto filter, browser plugin and licences |
 | live-questions/ | Node and Worker builds, audience page and editable upstream-derived source |
 | live-questions-bridge.js | Same-slide answer/closing/results integration |
 | launch_shiny.R / shiny/app.R | Existing actual R widgets |

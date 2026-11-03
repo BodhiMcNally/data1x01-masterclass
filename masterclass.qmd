@@ -30,9 +30,9 @@ format:
     include-after-body: interactions-include.html
     include-in-header: voting-head.html
 filters:
-  - live-questions
+  - masterclass/live-questions
 revealjs-plugins:
-  - plugin: live-questions
+  - masterclass/live-questions
 live-questions:
   session: data1x01-revision
   results: hidden

@@ -27,6 +27,6 @@ Python and R dependencies retain their respective upstream licences.
 Live Questions for Quarto revealjs 1.2.0, Sean Davis, MIT.
 Source and documented local changes: live-questions/UPSTREAM.md.
 Licence: live-questions/LICENSE.
-Bundled QR generator notice: _extensions/live-questions/THIRD_PARTY_NOTICES.md.
+Bundled QR generator notice: _extensions/masterclass/live-questions/THIRD_PARTY_NOTICES.md.
 Hono, @hono/node-server and ws licences: live-questions/licenses/.
 cloudflared and Node binaries are optional runtime downloads from their official vendors and are not redistributed in this archive.

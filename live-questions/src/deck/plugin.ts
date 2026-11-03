@@ -1,5 +1,5 @@
 /**
- * Entry point, bundled to _extensions/live-questions/live-questions.js as an IIFE.
+ * Entry point, bundled to _extensions/masterclass/live-questions/live-questions.js as an IIFE.
  * Quarto lists `RevealLiveQuestions` in Reveal.initialize({ plugins: [...] }), so
  * the global must be a function returning the plugin object.
  */

@@ -37,15 +37,15 @@ presenter deck (Quarto revealjs)               audience phones
   Object) and `src/server/node/` (HTTP server, room registry, file
   persistence). They hold connections, check the presenter key, rate-limit,
   coalesce broadcasts and persist the room. They contain no question logic.
-- **Deck plugin** (`src/deck/` built to `_extensions/live-questions/live-questions.js`)
-  and **Lua filter** (`_extensions/live-questions/live-questions.lua`).
+- **Deck plugin** (`src/deck/` built to `_extensions/masterclass/live-questions/live-questions.js`)
+  and **Lua filter** (`_extensions/masterclass/live-questions/live-questions.lua`).
 - **Audience page** (`public/*.html`, `public/vote.css`, `src/audience/`
   built to `public/vote.js`).
 
 ## Repository layout
 
 ```
-_extensions/live-questions/     what `quarto add` installs; live-questions.js is a
+_extensions/masterclass/live-questions/     what `quarto add` installs; live-questions.js is a
                            committed build artifact
 src/shared/protocol.ts     wire protocol and limits
 src/server/                room core, validation, rate limiting, Hono app
