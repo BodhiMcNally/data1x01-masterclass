@@ -32,7 +32,7 @@ format:
 filters:
   - live-questions
 revealjs-plugins:
-  - live-questions
+  - plugin: live-questions
 live-questions:
   session: data1x01-revision
   results: hidden
