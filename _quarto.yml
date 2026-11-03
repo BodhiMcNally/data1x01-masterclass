@@ -1,0 +1,9 @@
+project:
+  type: default
+  render:
+    - masterclass.qmd
+  pre-render:
+    - python scripts/build_analysis.py
+    - Rscript scripts/build_figures.R
+execute:
+  enabled: false

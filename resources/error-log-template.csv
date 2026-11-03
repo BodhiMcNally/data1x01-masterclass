@@ -1,0 +1,4 @@
+Question or concept,My mistake,Corrected rule,Reattempt date,Result
+Conditional probability,Chose 44/64,Given below 7 h means use denominator 80 and probability 44/80,,Correct
+Negative transformation,Kept correlation positive,Negative scaling of one variable reverses the correlation sign,,Review
+Changed null value,Reused the p-value for mu=0,Check the new null against the CI or rerun the matching test,,Review

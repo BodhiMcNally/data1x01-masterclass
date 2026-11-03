@@ -1,0 +1,11 @@
+{
+  "wrangler": "4.150.0",
+  "dryRun": "passed",
+  "bundledUploadKiB": 98.39,
+  "gzipKiB": 25.7,
+  "bindings": [
+    "ROOMS (SessionRoom Durable Object)",
+    "ASSETS"
+  ],
+  "publicDeployment": false
+}

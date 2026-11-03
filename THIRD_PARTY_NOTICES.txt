@@ -1,0 +1,32 @@
+reveal.js 5.1.0
+Copyright (C) 2011-2024 Hakim El Hattab, https://hakim.se
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+DejaVu fonts: see assets/DejaVu-LICENCE.txt.
+Society logos and portrait: see docs/Asset_Attribution.md.
+Quarto: https://quarto.org/ (GPL-2.0).
+Python and R dependencies retain their respective upstream licences.
+
+Live Questions for Quarto revealjs 1.2.0, Sean Davis, MIT.
+Source and documented local changes: live-questions/UPSTREAM.md.
+Licence: live-questions/LICENSE.
+Bundled QR generator notice: _extensions/live-questions/THIRD_PARTY_NOTICES.md.
+Hono, @hono/node-server and ws licences: live-questions/licenses/.
+cloudflared and Node binaries are optional runtime downloads from their official vendors and are not redistributed in this archive.

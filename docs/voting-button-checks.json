@@ -1,0 +1,28 @@
+{
+  "testedAt": "2026-11-03T21:44:39.337Z",
+  "checks": {
+    "offlineSlideCount": true,
+    "offlineMode": true,
+    "badKeyStaysInSetup": true,
+    "importedServer": true,
+    "importedKey": true,
+    "noKeyInURL": true,
+    "savedConnection": true,
+    "phoneQuestionMatches": {
+      "phone": "Voting open\n\nQ1 Study design. An evening study-space QR invitation recruits 160 first-year volunteers. They report their sleep and complete a common quiz. Which statement is most appropriate?\n\nTap one. You can change your vote until voting closes.\n\nA\nA larger sample would remove the recruitment bias.\nB\nVolunteering makes the study a randomised experiment.\nC\nThe study can identify associations, subject to recruitment limits.\nD\nUsing the same quiz makes the sample representative.",
+      "definition": "{\"correct\":[2],\"id\":\"vote-q1\",\"options\":[\"A larger sample would remove the recruitment bias.\",\"Volunteering makes the study a randomised experiment.\",\"The study can identify associations, subject to recruitment limits.\",\"Using the same quiz makes the sample representative.\"],\"prompt\":\"Q1 Study design. An evening study-space QR invitation recruits 160 first-year volunteers. They report their sleep and complete a common quiz. Which statement is most appropriate?\",\"results\":\"hidden\",\"type\":\"poll\"}"
+    },
+    "answerAndDistribution": true,
+    "refreshKeepsSession": true,
+    "endedOffline": true,
+    "savedOneClickStart": true,
+    "editedOptionsFollowSlide": "Edited answer from the visible slide.",
+    "editedCorrectAnswerFollowsSlide": true,
+    "allPhoneQuestionLimits": true,
+    "sessionOnlyKeyNotPersisted": true,
+    "sessionOnlyRefresh": true,
+    "noBrowserErrors": []
+  },
+  "githubWorkflowExecuted": false,
+  "publicWorkerChanged": false
+}

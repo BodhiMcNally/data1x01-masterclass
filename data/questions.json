@@ -1,0 +1,345 @@
+[
+  {
+    "id": "MCQ1",
+    "number": 1,
+    "title": "Study design",
+    "stem": "An evening study-space QR invitation recruits 160 first-year volunteers. They report their sleep and complete a common quiz. **Which statement is most appropriate?**",
+    "stimulus": "> Sleep is measured, not assigned.",
+    "options": {
+      "A": "A larger sample would remove the recruitment bias.",
+      "B": "Volunteering makes the study a randomised experiment.",
+      "C": "The study can identify associations, subject to recruitment limits.",
+      "D": "Using the same quiz makes the sample representative."
+    },
+    "answer": "C",
+    "reasons": {
+      "A": "More observations reduce chance variation, not systematic selection bias.",
+      "B": "Random allocation of a treatment defines a randomised experiment.",
+      "C": "Sleep is observed. Selection bias and confounding remain possible.",
+      "D": "A common measurement does not change how students were recruited."
+    },
+    "difficulty": "Foundational",
+    "sources": "Topic 1 pp. 25–38; Topic 8 pp. 12–22; Challenge 1 and 8; sample MCQ Q2, Q14; sample EA part (a).",
+    "topics": [
+      1,
+      8
+    ],
+    "learning_outcomes": "LO2 / LO9"
+  },
+  {
+    "title": "Linking student records",
+    "stem": "A researcher wants to link the sleep survey to individual university marks. The original consent covered only the survey. **Which action is most appropriate before linking the records?**",
+    "stimulus": "",
+    "options": {
+      "A": "Remove names, then link records without checking consent.",
+      "B": "Publish the linked records after replacing student numbers.",
+      "C": "Assume a larger dataset makes privacy concerns negligible.",
+      "D": "Check consent and ethics requirements, then limit and secure the data."
+    },
+    "answer": "D",
+    "reasons": {
+      "A": "Removing names alone does not resolve consent or re-identification risks.",
+      "B": "Replacing an identifier does not necessarily make linked records anonymous.",
+      "C": "More data can increase the risk of identifying an individual.",
+      "D": "Check the new use, minimise the linked data and protect access."
+    },
+    "difficulty": "Foundational",
+    "sources": "Module 1, Topic 1: ethics and data linkage; current sample MCQ Q1. LO1.",
+    "id": "MCQ2",
+    "number": 2,
+    "topics": [
+      1
+    ],
+    "learning_outcomes": "LO1"
+  },
+  {
+    "id": "MCQ3",
+    "number": 3,
+    "title": "Transforming variables",
+    "stem": "The following summaries describe the 160 students. A new variable is defined in R. **What are its mean, SD and correlation with Score?**",
+    "stimulus": "```text\nmean(Sleep)          7.0\nsd(Sleep)            1.2\ncor(Sleep, Score)    0.4114\n```\n\n```r\nSleepIndex = 10 - 2 * students$Sleep\n```",
+    "options": {
+      "A": "Mean −4, SD 2.4, correlation −0.4114.",
+      "B": "Mean −4, SD 1.2, correlation −0.4114.",
+      "C": "Mean −4, SD 2.4, correlation +0.4114.",
+      "D": "Mean +4, SD 2.4, correlation −0.4114."
+    },
+    "answer": "A",
+    "reasons": {
+      "A": "10 − 2×7 = −4. SD is multiplied by 2 and correlation changes sign.",
+      "B": "Multiplication by −2 doubles the SD.",
+      "C": "Reversing the direction of Sleep changes the correlation’s sign.",
+      "D": "The transformed mean is 10 − 14 = −4."
+    },
+    "difficulty": "Moderate",
+    "sources": "Topics 3 and 5; Challenges 3.3 and 5.3; Exam Guide transformations; sample MCQ Q4.",
+    "topics": [
+      3,
+      5
+    ],
+    "learning_outcomes": "LO3 / LO5"
+  },
+  {
+    "id": "MCQ4",
+    "number": 4,
+    "title": "Normal probabilities in R",
+    "stem": "Assume $X\\sim N(7,1.2^2)$ models nightly sleep. **Which R expression calculates $P(5.8<X<9.4)$?**",
+    "stimulus": "<img src=\"figures/normal_interval.png\" alt=\"Normal density with the sleep interval 5.8 to 9.4 hours shaded.\">",
+    "options": {
+      "A": "`pnorm(9.4,7,1.2^2)-pnorm(5.8,7,1.2^2)`",
+      "B": "`pnorm(5.8,7,1.2)-pnorm(9.4,7,1.2)`",
+      "C": "`1-pnorm(9.4,7,1.2)+pnorm(5.8,7,1.2)`",
+      "D": "`pnorm(9.4,7,1.2)-pnorm(5.8,7,1.2)`"
+    },
+    "answer": "D",
+    "reasons": {
+      "A": "The third argument of pnorm is the SD, not the variance.",
+      "B": "The subtraction is reversed, giving a negative number.",
+      "C": "This adds the two tails outside the required interval.",
+      "D": "Subtract the lower-tail area at 5.8 from the area at 9.4."
+    },
+    "difficulty": "Moderate",
+    "sources": "Topic 4 pp. 10–25; Challenge 4; Revision Quiz 4 Q18/Q25/Q26; sample MCQ Q6.",
+    "topics": [
+      4
+    ],
+    "learning_outcomes": "LO4"
+  },
+  {
+    "title": "Measurement error",
+    "stem": "A tracker measures the **same fixed duration** 36 times under the same conditions. Each reading has a bias of +20 minutes and an independent chance error with mean 0 and SD 12 minutes. **For the average of the 36 readings, what are the bias and SE?**",
+    "stimulus": "",
+    "options": {
+      "A": "Bias 0 minutes, SE 2 minutes.",
+      "B": "Bias +20 minutes, SE 12 minutes.",
+      "C": "Bias +20 minutes, SE 2 minutes.",
+      "D": "Bias +20/36 minutes, SE 12/36 minutes."
+    },
+    "answer": "C",
+    "reasons": {
+      "A": "Averaging reduces chance error. The common +20 minute bias remains.",
+      "B": "The spread of the average is smaller than the spread of one reading.",
+      "C": "Bias remains +20. The SE is 12 / sqrt(36) = 2 minutes.",
+      "D": "The fixed bias remains. SE is divided by sqrt(36), not 36."
+    },
+    "difficulty": "Moderate",
+    "sources": "Module 2, Topic 4: measurement error; Module 3, Topic 7: SE of a mean; current sample MCQ Q7. LO4 and LO6.",
+    "id": "MCQ5",
+    "number": 5,
+    "topics": [
+      4,
+      7
+    ],
+    "learning_outcomes": "LO4 / LO6"
+  },
+  {
+    "id": "MCQ6",
+    "number": 6,
+    "title": "Conditional probability",
+    "stem": "R gives the following counts. One student is chosen at random **from those sleeping below 7 hours**. What is the probability they report 2+ caffeinated drinks per day?",
+    "stimulus": "```r\ntable(students$SleepGroup,\n      students$Caffeine)\n```\n\n| Sleep group | 0 | 1 | 2+ | Total |\n|---|---:|---:|---:|---:|\n| Below 7 h | 12 | 24 | 44 | 80 |\n| At least 7 h | 28 | 32 | 20 | 80 |\n| Total | 40 | 56 | 64 | 160 |",
+    "options": {
+      "A": "44/64",
+      "B": "44/80",
+      "C": "44/160",
+      "D": "64/160"
+    },
+    "answer": "B",
+    "reasons": {
+      "A": "This conditions on 2+ drinks rather than short sleep.",
+      "B": "The relevant group contains 80 students, of whom 44 report 2+ drinks.",
+      "C": "This is the joint probability among all 160 students.",
+      "D": "This is the marginal probability of 2+ drinks."
+    },
+    "difficulty": "Foundational",
+    "sources": "Topic 6 conditional probability; Challenge 6 prosecutor fallacy; Revision Quiz 6 Q1/Q7/Q8; Week 13 recap p24.",
+    "topics": [
+      6
+    ],
+    "learning_outcomes": "LO6"
+  },
+  {
+    "title": "Binomial probability in R",
+    "stem": "A box model has a 0.4 chance of a 2+ drinks ticket. Five tickets are drawn independently with replacement. Let X count the 2+ tickets. **Which R expression gives the chance of at least two?**",
+    "stimulus": "```r\n# X ~ Binomial(size = 5, prob = 0.4)\n```",
+    "options": {
+      "A": "`1 - pbinom(1, 5, 0.4)`",
+      "B": "`1 - pbinom(2, 5, 0.4)`",
+      "C": "`dbinom(2, 5, 0.4)`",
+      "D": "`pbinom(2, 5, 0.4)`"
+    },
+    "answer": "A",
+    "reasons": {
+      "A": "At least two is the complement of zero or one.",
+      "B": "This gives more than two, so it excludes X = 2.",
+      "C": "This gives exactly two.",
+      "D": "This gives at most two."
+    },
+    "difficulty": "Moderate",
+    "sources": "Module 3, Topic 6: Binomial model and pbinom; Challenge 6; current sample MCQ Q12 and Exam Guide. LO6.",
+    "id": "MCQ7",
+    "number": 7,
+    "topics": [
+      6
+    ],
+    "learning_outcomes": "LO6"
+  },
+  {
+    "id": "MCQ8",
+    "number": 8,
+    "title": "Sampling distributions",
+    "stem": "A population has mean sleep **7 hours** and SD **1.2 hours**. Independent observations are sampled with replacement. **What are the EV and SE of the sample mean when n increases from 25 to 100?**",
+    "stimulus": "For $n=25$, $EV(\\bar{X})=7$ and $SE(\\bar{X})=0.24$.",
+    "options": {
+      "A": "EV 7 hours, SE 0.06 hours.",
+      "B": "EV 7 hours, SE 0.48 hours.",
+      "C": "EV 28 hours, SE 0.12 hours.",
+      "D": "EV 7 hours, SE 0.12 hours."
+    },
+    "answer": "D",
+    "reasons": {
+      "A": "SE scales with $1/\\sqrt n$, not $1/n$.",
+      "B": "A larger sample reduces the SE.",
+      "C": "The EV of a sample mean remains the population mean.",
+      "D": "$SE=1.2/\\sqrt{100}=0.12$. Four times n gives half the SE."
+    },
+    "difficulty": "Moderate",
+    "sources": "Topic 7 pp. 26–32,45,55; Challenge 7 and 8; Revision Quiz 7 Q6/Q10; Week 13 workshop Report 2 Q2.",
+    "topics": [
+      7
+    ],
+    "learning_outcomes": "LO6"
+  },
+  {
+    "title": "Bootstrapping the mean",
+    "stem": "The observed survey has 160 complete Sleep values. We want a bootstrap distribution of the mean. **Which expression should replace RESAMPLE?**",
+    "stimulus": "```r\nreplicate(10000, {\n  x = RESAMPLE\n  mean(x)\n})\n```",
+    "options": {
+      "A": "`sample(students$Sleep, 160, replace=FALSE)`",
+      "B": "`sample(students$Sleep, 160, replace=TRUE)`",
+      "C": "`rnorm(160, mean=7, sd=1.2)`",
+      "D": "`sample(students$Sleep, 10000, replace=TRUE)`"
+    },
+    "answer": "B",
+    "reasons": {
+      "A": "Without replacement, every value appears once. Each mean is unchanged.",
+      "B": "Each bootstrap sample has the original size and resamples the observed values with replacement.",
+      "C": "This simulates from a Normal model rather than resampling the observed data.",
+      "D": "10,000 is the number of replicates. Each resample should still contain 160 values."
+    },
+    "difficulty": "Moderate",
+    "sources": "Module 3, Topic 8: bootstrapping procedure, lecture pp. 48–52. LO6.",
+    "id": "MCQ9",
+    "number": 9,
+    "topics": [
+      8
+    ],
+    "learning_outcomes": "LO6"
+  },
+  {
+    "id": "MCQ10",
+    "number": 10,
+    "title": "Using a confidence interval",
+    "stem": "Sixteen students are measured before and after a phone-free fortnight. Let $D=\\text{After}-\\text{Before}$. Assume independent students and approximately Normal differences. **For the new two-sided test $H_0:\\mu_D=0.75$ at 5%, which conclusion is correct?**",
+    "stimulus": "```r\nt.test(D, mu = 0)\n```\n\n```text\nt = 2, df = 15, p-value = 0.06395\n95 percent confidence interval:\n -0.03286  1.03286\nsample mean: 0.5\n```",
+    "options": {
+      "A": "Reject: the sample mean differs from 0.75.",
+      "B": "Retain: 0.75 lies inside the 95% confidence interval.",
+      "C": "Retain: the new p-value is 0.06395.",
+      "D": "Accept: there is a 95% probability the mean lies in this interval."
+    },
+    "answer": "B",
+    "reasons": {
+      "A": "A sample estimate can differ from the null through chance variation.",
+      "B": "A matching two-sided 5% test retains null values inside the 95% CI.",
+      "C": "The printed p-value tests μD = 0. The new p-value is 0.3332.",
+      "D": "The parameter is fixed. 95% refers to the CI method’s long-run coverage."
+    },
+    "difficulty": "Challenging",
+    "sources": "Topic 10; Revision Quiz 10 Q1; sample MCQ Q17; Week 13 workshop Report 2 whiteboard task.",
+    "topics": [
+      8,
+      10
+    ],
+    "learning_outcomes": "LO7 / LO8"
+  },
+  {
+    "id": "MCQ11",
+    "number": 11,
+    "title": "Linear regression",
+    "stem": "A regression of Score on Sleep gives the following output and residual plot. **Which statement is most appropriate?**",
+    "stimulus": "```r\nfit = lm(Score ~ Sleep, data = students)\nsummary(fit)\n```\n\n```text\nSlope = 3.000    SE = 0.529\nt = 5.674       p = 6.485e-08\n```\n\n<img src=\"figures/regression_residuals.png\" alt=\"Residuals against fitted quiz score, with increasing vertical spread.\">",
+    "options": {
+      "A": "The changing residual spread raises concern about the usual slope inference.",
+      "B": "The small p-value establishes constant residual variance.",
+      "C": "The positive slope shows that more sleep caused higher scores.",
+      "D": "A straight residual QQ plot would establish all model assumptions."
+    },
+    "answer": "A",
+    "reasons": {
+      "A": "Increasing spread suggests heteroscedasticity. The usual test needs caution.",
+      "B": "The slope test does not check the constant-variance condition.",
+      "C": "Sleep was observed. Confounding remains possible.",
+      "D": "A QQ plot checks Normality, not every LINE condition."
+    },
+    "difficulty": "Challenging",
+    "sources": "Topic 5 pp. 39–50; Topic 11 pp. 47–53; Challenge 5 residual audit; sample MCQ Q8/Q10/Q20.",
+    "topics": [
+      5,
+      11
+    ],
+    "learning_outcomes": "LO5 / LO7 / LO9"
+  },
+  {
+    "id": "MCQ12",
+    "number": 12,
+    "title": "Choosing the chi-squared test",
+    "stem": "We want to test whether **sleep group and caffeine category are associated**. Which row gives the test, expected count for **Below 7 h / 2+ drinks** and degrees of freedom?",
+    "stimulus": "| Sleep group | 0 | 1 | 2+ | Total |\n|---|---:|---:|---:|---:|\n| Below 7 h | 12 | 24 | 44 | 80 |\n| At least 7 h | 28 | 32 | 20 | 80 |\n| Total | 40 | 56 | 64 | 160 |\n\nHere `tab` is the 2 × 3 table without its totals.",
+    "options": {
+      "A": "Goodness of fit, expected 53.33, df = 2.",
+      "B": "Independence, expected 44, df = 2.",
+      "C": "Independence, expected 32, df = 2.",
+      "D": "Independence, expected 32, df = 5."
+    },
+    "answer": "C",
+    "reasons": {
+      "A": "Equal-proportion GOF concerns one variable, not the association of two.",
+      "B": "44 is observed. Expected counts are calculated under independence.",
+      "C": "$E=80\\times64/160=32$ and $df=(2-1)(3-1)=2$.",
+      "D": "$rc-1$ is not the df formula for an independence test."
+    },
+    "difficulty": "Moderate",
+    "sources": "Topic 11 pp. 6–7,23–32; Challenge 11; Revision Quiz 11 Q8/Q11/Q19; sample EA Source 3.",
+    "topics": [
+      11
+    ],
+    "learning_outcomes": "LO7"
+  },
+  {
+    "title": "Goodness of fit",
+    "stem": "A model assigns equal population proportions to the three caffeine categories. Assume independent records and adequate expected counts. **What does this output support at the 5% level?**",
+    "stimulus": "```r\nchisq.test(c(40, 56, 64),\n           p = c(1/3, 1/3, 1/3))\n```\n\n```text\nX-squared = 5.6, df = 2\np-value = 0.06081\n```",
+    "options": {
+      "A": "Reject, because the three observed counts differ.",
+      "B": "Retain, which establishes equal population proportions.",
+      "C": "The probability that the equal-proportions model is true is 0.06081.",
+      "D": "Retain, with insufficient evidence against equal population proportions."
+    },
+    "answer": "D",
+    "reasons": {
+      "A": "Unequal counts can arise through chance even when the model holds.",
+      "B": "Retaining a model does not prove it.",
+      "C": "The p-value assumes the null model. It does not give its probability.",
+      "D": "p > 0.05, so the data do not provide sufficient evidence against the model at this level."
+    },
+    "difficulty": "Moderate",
+    "sources": "Module 4, Topic 11: chi-squared goodness of fit; Challenge 11; current sample MCQ Q18, Q29–30. LO7 and LO8.",
+    "id": "MCQ13",
+    "number": 13,
+    "topics": [
+      11
+    ],
+    "learning_outcomes": "LO7 / LO8"
+  }
+]

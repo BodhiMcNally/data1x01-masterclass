@@ -1,0 +1,428 @@
+{
+  "testedAt": "2026-11-03T10:46:06.102Z",
+  "browser": "130.0.6723.58",
+  "slides": [
+    {
+      "id": "s1",
+      "title": "DATA1x01Final exam revision",
+      "fragments": 0
+    },
+    {
+      "id": "s2",
+      "title": "Before we start",
+      "fragments": 0
+    },
+    {
+      "id": "s3",
+      "title": "Sleep, caffeine and quiz scores",
+      "fragments": 0
+    },
+    {
+      "id": "s4",
+      "title": "The variables",
+      "fragments": 0
+    },
+    {
+      "id": "q1",
+      "title": "Q1 Study design",
+      "fragments": 4
+    },
+    {
+      "id": "s6",
+      "title": "Study design and generalisation",
+      "fragments": 0
+    },
+    {
+      "id": "q2",
+      "title": "Q2 Linking student records",
+      "fragments": 4
+    },
+    {
+      "id": "q3",
+      "title": "Q3 Transforming variables",
+      "fragments": 4
+    },
+    {
+      "id": "s8",
+      "title": "Transformations: mean, SD and correlation",
+      "fragments": 0
+    },
+    {
+      "id": "q4",
+      "title": "Q4 Normal probabilities in R",
+      "fragments": 4
+    },
+    {
+      "id": "s10",
+      "title": "Normal notation and R",
+      "fragments": 0
+    },
+    {
+      "id": "q5",
+      "title": "Q5 Measurement error",
+      "fragments": 4
+    },
+    {
+      "id": "measurement-core",
+      "title": "Measurement error and averaging",
+      "fragments": 0
+    },
+    {
+      "id": "q6",
+      "title": "Q6 Conditional probability",
+      "fragments": 4
+    },
+    {
+      "id": "q7",
+      "title": "Q7 Binomial probability in R",
+      "fragments": 4
+    },
+    {
+      "id": "q8",
+      "title": "Q8 Sampling distributions",
+      "fragments": 4
+    },
+    {
+      "id": "s13",
+      "title": "Sample size and standard error",
+      "fragments": 0
+    },
+    {
+      "id": "q9",
+      "title": "Q9 Bootstrapping the mean",
+      "fragments": 4
+    },
+    {
+      "id": "bootstrap-core",
+      "title": "Bootstrap samples and simulation replicates",
+      "fragments": 0
+    },
+    {
+      "id": "q10",
+      "title": "Q10 Using a confidence interval",
+      "fragments": 4
+    },
+    {
+      "id": "s15",
+      "title": "Paired data and the null value",
+      "fragments": 0
+    },
+    {
+      "id": "q11",
+      "title": "Q11 Linear regression",
+      "fragments": 4
+    },
+    {
+      "id": "s17",
+      "title": "Homoscedasticity and heteroscedasticity",
+      "fragments": 0
+    },
+    {
+      "id": "q12",
+      "title": "Q12 Choosing the chi-squared test",
+      "fragments": 4
+    },
+    {
+      "id": "q13",
+      "title": "Q13 Goodness of fit",
+      "fragments": 4
+    },
+    {
+      "id": "s19",
+      "title": "Choosing a hypothesis test",
+      "fragments": 0
+    },
+    {
+      "id": "s20",
+      "title": "Short answer 1: interpreting a claim",
+      "fragments": 0
+    },
+    {
+      "id": "s21",
+      "title": "Short answer 1: worked answer",
+      "fragments": 1
+    },
+    {
+      "id": "s22",
+      "title": "Short answer 2: interpreting a p-value",
+      "fragments": 0
+    },
+    {
+      "id": "s23",
+      "title": "Short answer 2: worked answer",
+      "fragments": 1
+    },
+    {
+      "id": "s24",
+      "title": "Short answer 3: a question, a plot and code",
+      "fragments": 0
+    },
+    {
+      "id": "s25",
+      "title": "Short answer 3: worked answer",
+      "fragments": 1
+    },
+    {
+      "id": "s26",
+      "title": "Sleep and quiz score by caffeine category",
+      "fragments": 0
+    },
+    {
+      "id": "s27",
+      "title": "Data types and graphical summaries",
+      "fragments": 0
+    },
+    {
+      "id": "s28",
+      "title": "Answering MCQs",
+      "fragments": 0
+    },
+    {
+      "id": "facetious",
+      "title": "A facetious last resort",
+      "fragments": 0
+    },
+    {
+      "id": "definitions1",
+      "title": "Things to stick in a neuron",
+      "fragments": 0
+    },
+    {
+      "id": "definitions2",
+      "title": "A few more definitions",
+      "fragments": 0
+    },
+    {
+      "id": "error-log",
+      "title": "An error log that helps next time",
+      "fragments": 0
+    },
+    {
+      "id": "s29",
+      "title": "Revision after today",
+      "fragments": 0
+    },
+    {
+      "id": "s31",
+      "title": "Good luck with DATA1x01!",
+      "fragments": 0
+    }
+  ],
+  "overflow": [],
+  "broken": [],
+  "zero": [],
+  "errors": [],
+  "requests": [],
+  "mcqs": [
+    {
+      "before": {
+        "id": "q1",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q1",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q2",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q2",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q3",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q3",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q4",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q4",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q5",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q5",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q6",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q6",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q7",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q7",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q8",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q8",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q9",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q9",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q10",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q10",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q11",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q11",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q12",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q12",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    },
+    {
+      "before": {
+        "id": "q13",
+        "visible": 0,
+        "correct": 1
+      },
+      "after": {
+        "id": "q13",
+        "visible": 4,
+        "selected": "B",
+        "correctBackground": "rgb(229, 241, 235)"
+      },
+      "hiddenAgain": 0
+    }
+  ],
+  "structure": {
+    "actualSlideCount": 41,
+    "noteCount": 0,
+    "timers": 0,
+    "imageAlts": true,
+    "math": 27,
+    "rawMath": [],
+    "last": "Good luck with DATA1x01!",
+    "website": "https://bodhimcnally.com/",
+    "email": "mailto:bodhi.mcnally@sydney.edu.au"
+  },
+  "interactiveSE": {
+    "se100": "EV = 7 hours SE = 0.12 hours",
+    "se400": "EV = 7 hours SE = 0.06 hours"
+  },
+  "interactiveCI": {
+    "ci0": "t = 2, p = 0.06395. Retain H₀ at 5%.",
+    "ci125": "t = -3, p = 0.00897. Reject H₀ at 5%."
+  },
+  "standalone": {
+    "broken": 0,
+    "font": true,
+    "images": 11
+  },
+  "verbatimQuotation": {
+    "passed": true,
+    "exactWording": true
+  }
+}

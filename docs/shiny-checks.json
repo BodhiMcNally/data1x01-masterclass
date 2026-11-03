@@ -1,0 +1,57 @@
+{
+  "samplingVisibleDimensions": {
+    "height": 480,
+    "content": 480,
+    "plotHeight": 260,
+    "imageHeight": 260
+  },
+  "widgetDimensions": [
+    {
+      "height": 480,
+      "content": 480,
+      "width": 540,
+      "contentWidth": 540,
+      "plots": [
+        {
+          "height": 0,
+          "imageHeight": 0,
+          "imageWidth": 0,
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "height": 480,
+      "content": 480,
+      "width": 540,
+      "contentWidth": 540,
+      "plots": [
+        {
+          "height": 250,
+          "imageHeight": 250,
+          "imageWidth": 520,
+          "loaded": true
+        }
+      ]
+    }
+  ],
+  "testedAt": "2026-11-03T10:52:38.415Z",
+  "shiny": "1.8.0",
+  "n100": "n = 100: EV = 7 h. SE = 0.12 h.\n2000 replicates: simulated SD = 0.118 h.",
+  "n400": "n = 400: EV = 7 h. SE = 0.06 h.\n2000 replicates: simulated SD = 0.060 h.",
+  "ci75": "t = -1.00, p = 0.3332. Retain H₀ at 5%.\n95% CI: [-0.03286, 1.03286].",
+  "ci125": "t = -3.00, p = 0.0090. Reject H₀ at 5%.\n95% CI: [-0.03286, 1.03286].",
+  "images": [
+    {
+      "name": "sampling",
+      "connected": true,
+      "fallbackHidden": true
+    },
+    {
+      "name": "ci",
+      "connected": true,
+      "fallbackHidden": true
+    }
+  ],
+  "errors": []
+}

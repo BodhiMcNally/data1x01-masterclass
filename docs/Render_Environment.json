@@ -1,0 +1,23 @@
+{
+  "Python": "3.12.14",
+  "NumPy": "2.3.5",
+  "pandas": "2.2.3",
+  "SciPy": "1.17.0",
+  "seed": 10012026,
+  "Quarto": "1.11.9",
+  "Pandoc": "3.10 (bundled)",
+  "reveal.js": "5.1.0",
+  "R": "4.3.3",
+  "ggplot2": "3.4.4",
+  "ReportLab": "4.4.9",
+  "browser": "Chrome Headless 130.0.6723.58",
+  "render_command": "quarto render masterclass.qmd --to revealjs",
+  "shiny": "1.8.0",
+  "Shiny launcher": "source(\"launch_shiny.R\") or Rscript launch_shiny.R",
+  "Live Questions": "1.2.0 with documented course adapter",
+  "live_questions_minimum_Quarto": "1.9.0",
+  "cloudflared": "2026.10.7 (optional temporary link)",
+  "Node": "22+ (tested on 24.22.1)",
+  "firstSlideVotingControls": "Browser connection import, authenticated start, fresh session and saved local connection",
+  "currentUIRender": "Quarto 1.11.9 using unchanged, previously generated R figures. R is not installed in this build environment; numerical Python checks passed. GitHub workflow installs R and regenerates figures."
+}

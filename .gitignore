@@ -1,3 +1,4 @@
+# Local credentials, voting sessions and deployment tools
 .live-questions/
 **/.live-questions/
 .wrangler/
@@ -16,3 +17,6 @@ masterclass_files/
 _site/
 live-questions/public/slides/
 *.log
+
+# Rendered by GitHub Actions
+/masterclass.html

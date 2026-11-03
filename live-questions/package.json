@@ -1,0 +1,23 @@
+{
+  "name": "data1x01-live-questions",
+  "version": "1.2.0-data1x01.1",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Local DATA1x01 integration of Live Questions for Quarto",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.6",
+    "hono": "4.13.16",
+    "qrcode-generator": "2.0.4",
+    "ws": "8.22.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

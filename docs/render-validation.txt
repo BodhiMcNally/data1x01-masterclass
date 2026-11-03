@@ -1,0 +1,56 @@
+Data and answer quantities regenerated.
+During startup - Warning message:
+In file(file, "rt") :
+  cannot open file '/workspace/scratch/aa756809cdb6/tools/r-root/usr/lib/R/etc/repositories': No such file or directory
+Five ggplot2 figures saved. All R checks passed.
+
+pandoc 
+  to: revealjs
+  output-file: masterclass.html
+  standalone: true
+  embed-resources: true
+  wrap: none
+  default-image-extension: png
+  html-math-method: mathml
+  slide-level: 2
+  css:
+    - styles.css
+  incremental: false
+  
+metadata
+  link-citations: true
+  width: 1280
+  height: 720
+  margin: 0
+  center: false
+  navigationMode: linear
+  controlsLayout: edges
+  controlsTutorial: false
+  hash: true
+  history: true
+  hashOneBasedIndex: false
+  fragmentInURL: false
+  transition: fade
+  backgroundTransition: none
+  pdfSeparateFragments: false
+  lang: en-AU
+  auto-stretch: false
+  pagetitle: DATA1x01 Final Exam Revision
+  author: Bodhi McNally
+  revealjs-plugins:
+    - live-questions
+  live-questions:
+    session: data1x01-revision
+    results: hidden
+    close-on-leave: true
+    qr: true
+  theme: serif
+  title-slide: false
+  slideNumber: c/t
+  progress: true
+  controls: false
+  menu: false
+  code-copy: false
+  
+Output created: masterclass.html
+

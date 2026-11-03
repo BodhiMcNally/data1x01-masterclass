@@ -1,0 +1,9 @@
+{
+  "localIntegration": "passed",
+  "cloudflareTunnelFromBuildHost": "blocked",
+  "reason": "Runtime denies the outbound DNS/network connection used by cloudflared.",
+  "permanentCloudflareWorkerDeployed": false,
+  "publicEndpointInDeliveredHTML": false,
+  "publicVotingRequires": "Run the launcher on a computer with Cloudflare Tunnel connectivity, or configure the included Cloudflare Worker deployment.",
+  "quickTunnelLimits": "Temporary URL, no uptime guarantee, 200 in-flight requests, new hostname on restart. Recommended for testing; use a Worker for the event."
+}

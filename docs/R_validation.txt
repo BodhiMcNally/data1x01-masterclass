@@ -1,0 +1,114 @@
+R version 4.3.3 (2024-02-29) 
+
+ggplot2: 3.4.4 
+
+Q3: transformed summaries
+       mean          sd correlation 
+  -4.000000    2.400000   -0.411442 
+
+Q4: all R expressions
+         A          B          C          D 
+ 0.7498813 -0.8185946  0.1814054  0.8185946 
+
+Q10: original null
+
+	One Sample t-test
+
+data:  D
+t = 2, df = 15, p-value = 0.06395
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.03286239  1.03286239
+sample estimates:
+mean of x 
+      0.5 
+
+
+Q10: changed null
+
+	One Sample t-test
+
+data:  D
+t = -1, df = 15, p-value = 0.3332
+alternative hypothesis: true mean is not equal to 0.75
+95 percent confidence interval:
+ -0.03286239  1.03286239
+sample estimates:
+mean of x 
+      0.5 
+
+
+Q12 and SA2
+              
+                0  1 2+
+  Below 7 h    12 24 44
+  At least 7 h 28 32 20
+
+	Pearson's Chi-squared test
+
+data:  tab
+X-squared = 16.543, df = 2, p-value = 0.0002557
+
+              
+                0  1 2+
+  Below 7 h    20 28 32
+  At least 7 h 20 28 32
+
+Q11
+
+Call:
+lm(formula = Score ~ Sleep, data = students)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-30.4712  -4.6003   0.2945   4.9557  21.7599 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  49.0000     3.7546  13.051  < 2e-16 ***
+Sleep         3.0000     0.5287   5.674 6.48e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 8 on 158 degrees of freedom
+Multiple R-squared:  0.1693,	Adjusted R-squared:  0.164 
+F-statistic:  32.2 on 1 and 158 DF,  p-value: 6.485e-08
+
+
+SA3 example code
+Code executed with 160 observations and three caffeine groups.
+
+Q5 measurement error
+bias   SE 
+  20    2 
+
+Q7 binomial R options
+      A       B       C       D 
+0.66304 0.31744 0.34560 0.68256 
+
+Q9 bootstrap code
+bootstrapMean   bootstrapSE 
+   6.99895318    0.09490146 
+
+Q13 goodness of fit
+
+	Chi-squared test for given probabilities
+
+data:  c(40, 56, 64)
+X-squared = 5.6, df = 2, p-value = 0.06081
+
+
+Interactive CI additional null 1.25
+
+	One Sample t-test
+
+data:  D
+t = -3, df = 15, p-value = 0.008973
+alternative hypothesis: true mean is not equal to 1.25
+95 percent confidence interval:
+ -0.03286239  1.03286239
+sample estimates:
+mean of x 
+      0.5 
+
+All assertions passed.

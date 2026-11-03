@@ -1,0 +1,30 @@
+{
+  "testedAt": "2026-11-03T11:55:15.595Z",
+  "publicConnection": false,
+  "shiny": true,
+  "checks": {
+    "localPresenter": true,
+    "secretRemoved": true,
+    "titleQR": true,
+    "changeAndReloadKeepOneVote": true,
+    "resultsHiddenBeforeReveal": true,
+    "phoneDoesNotShowResultsWhileOpen": true,
+    "knownDistribution": [
+      "0%",
+      "33%",
+      "67%",
+      "0%"
+    ],
+    "fourExplanationsOnReveal": true,
+    "phoneLocksAfterReveal": true,
+    "lateJoinUsesCurrentQuestion": "Voting open\n\nQ2. A researcher wants to link the sleep survey to individual university",
+    "nativeAnswerKeyRevealsExplanations": true,
+    "revealedQuestionsStayLockedOnRevisit": true,
+    "reconnectRetainsResults": true,
+    "offlineRevealSynchronisesOnReconnect": true,
+    "allMCQHeadersFit": [],
+    "smallQRExpands": true,
+    "shinyAndPollingTogether": true,
+    "noBrowserErrors": []
+  }
+}

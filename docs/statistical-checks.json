@@ -1,0 +1,160 @@
+{
+  "checks": {
+    "sample sleep mean": {
+      "value": 7.0,
+      "expected": 7,
+      "passed": true
+    },
+    "sample sleep SD": {
+      "value": 1.2000000000000557,
+      "expected": 1.2,
+      "passed": true
+    },
+    "Normal interval using erf": {
+      "value": 0.8185946141203637,
+      "expected": 0.8185946141203637,
+      "passed": true
+    },
+    "Normal interval by quadrature": {
+      "value": 0.8185946141203638,
+      "expected": 0.8185946141203637,
+      "passed": true
+    },
+    "Normal outside tails": {
+      "value": 0.18140538587963628,
+      "expected": 0.18140538587963628,
+      "passed": true
+    },
+    "conditional 2+ given short": {
+      "value": 0.55,
+      "expected": 0.55,
+      "passed": true
+    },
+    "independence expected count": {
+      "value": 32.0,
+      "expected": 32,
+      "passed": true
+    },
+    "independence chi-square": {
+      "value": 16.542857142857144,
+      "expected": 16.542857142857144,
+      "passed": true
+    },
+    "chi-square df2 analytic upper tail": {
+      "value": 0.00025571971631389596,
+      "expected": 0.0002557197163138959,
+      "passed": true
+    },
+    "paired difference mean": {
+      "value": 0.5000000000001248,
+      "expected": 0.5,
+      "passed": true
+    },
+    "paired difference SD": {
+      "value": 1.0000000000001532,
+      "expected": 1,
+      "passed": true
+    },
+    "paired SE": {
+      "value": 0.2500000000000383,
+      "expected": 0.25,
+      "passed": true
+    },
+    "paired original two-sided p by integration": {
+      "value": 0.06394500728472015,
+      "expected": 0.06394500728472015,
+      "passed": true
+    },
+    "paired changed-null p by integration": {
+      "value": 0.333170135915478,
+      "expected": 0.3331701359154764,
+      "passed": true
+    },
+    "CI endpoint tail -0.03286238638994399": {
+      "value": 0.02499999999999996,
+      "expected": 0.025,
+      "passed": true
+    },
+    "CI endpoint tail 1.032862386389944": {
+      "value": 0.02499999999999996,
+      "expected": 0.025,
+      "passed": true
+    },
+    "regression slope by sums": {
+      "value": 2.9999999999998113,
+      "expected": 3,
+      "passed": true
+    },
+    "regression intercept by sums": {
+      "value": 49.000000000001336,
+      "expected": 49,
+      "passed": true
+    },
+    "regression residual standard error": {
+      "value": 8.000000000000036,
+      "expected": 8,
+      "passed": true
+    },
+    "regression slope SE": {
+      "value": 0.5287010571454049,
+      "expected": 0.5287010571454285,
+      "passed": true
+    },
+    "SleepIndex mean": {
+      "value": -4.0,
+      "expected": -4,
+      "passed": true
+    },
+    "SleepIndex SD": {
+      "value": 2.4000000000001114,
+      "expected": 2.4,
+      "passed": true
+    },
+    "SleepIndex correlation": {
+      "value": -0.4114420487396374,
+      "expected": -0.41144204873964463,
+      "passed": true
+    },
+    "mean SE n=25": {
+      "value": 0.24,
+      "expected": 0.24,
+      "passed": true
+    },
+    "mean SE n=100": {
+      "value": 0.12,
+      "expected": 0.12,
+      "passed": true
+    },
+    "mean SE n=400": {
+      "value": 0.06,
+      "expected": 0.06,
+      "passed": true
+    },
+    "measurement mean SE": {
+      "value": 2.0,
+      "expected": 2,
+      "passed": true
+    },
+    "binomial at least two by enumeration": {
+      "value": 0.6630400000000001,
+      "expected": 0.66304,
+      "passed": true
+    },
+    "goodness-of-fit chi-square": {
+      "value": 5.6,
+      "expected": 5.6,
+      "passed": true
+    },
+    "goodness-of-fit df2 analytic p": {
+      "value": 0.06081006262521797,
+      "expected": 0.060810062625218,
+      "passed": true
+    },
+    "CI widget null 1.25 p by quadrature": {
+      "value": 0.008972737477223321,
+      "expected": 0.00897273747722333,
+      "passed": true
+    }
+  },
+  "passed": 31
+}

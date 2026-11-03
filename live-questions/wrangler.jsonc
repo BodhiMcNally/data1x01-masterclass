@@ -1,0 +1,36 @@
+{
+  "name": "data1x01-live-questions",
+  "main": "cloudflare-worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "public",
+    "binding": "ASSETS",
+    "html_handling": "none",
+    "not_found_handling": "none",
+    "run_worker_first": [
+      "/",
+      "/s/*",
+      "/api/*",
+      "/healthz"
+    ]
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "ROOMS",
+        "class_name": "SessionRoom"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "SessionRoom"
+      ]
+    }
+  ],
+  "observability": {
+    "enabled": false
+  }
+}
