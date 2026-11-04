@@ -7394,6 +7394,231 @@ function parseMessage(raw2) {
   return validateMessage(value);
 }
 
+// src/server/results-export.ts
+var CSV_COLUMNS = [
+  "session",
+  "exported_at",
+  "session_participants",
+  "record_type",
+  "question_id",
+  "question_type",
+  "prompt",
+  "status",
+  "answer_revealed",
+  "concept",
+  "topic",
+  "learning_outcome_id",
+  "learning_outcome",
+  "canvas_resources",
+  "question_count",
+  "responding_students",
+  "responses",
+  "graded_responses",
+  "correct_responses",
+  "incorrect_responses",
+  "accuracy_pct",
+  "incorrect_students",
+  "confidence_responses",
+  "guessing_responses",
+  "guessing_pct",
+  "unsure_responses",
+  "unsure_pct",
+  "confident_responses",
+  "confident_pct",
+  "unrated_responses",
+  "low_confidence_students",
+  "revision_priority_students",
+  "revision_priority_pct",
+  "option",
+  "option_text",
+  "correct_option",
+  "response_text",
+  "response_count",
+  "response_pct",
+  "hidden"
+];
+var pct = (n, denominator) => denominator ? Math.round(n / denominator * 1e4) / 100 : "";
+var PollTotals = class {
+  students = /* @__PURE__ */ new Set();
+  incorrect = /* @__PURE__ */ new Set();
+  low = /* @__PURE__ */ new Set();
+  priority = /* @__PURE__ */ new Set();
+  responses = 0;
+  graded = 0;
+  correct = 0;
+  wrong = 0;
+  confidence = [0, 0, 0];
+  unrated = 0;
+  questionCount = 0;
+  add(entry) {
+    if (entry.question.type !== "poll") return;
+    this.questionCount++;
+    const confidence = new Map(entry.confidence ?? []);
+    for (const [voter, choice] of entry.votes) {
+      this.students.add(voter);
+      this.responses++;
+      const wrong = entry.revealed !== null && !entry.revealed.includes(choice);
+      if (entry.revealed !== null) {
+        this.graded++;
+        if (wrong) {
+          this.wrong++;
+          this.incorrect.add(voter);
+        } else this.correct++;
+      }
+      const rating = entry.question.confidence ? confidence.get(voter) : void 0;
+      if (rating !== void 0) this.confidence[rating]++;
+      else if (entry.question.confidence) this.unrated++;
+      const low = rating === 0 || rating === 1;
+      if (low) this.low.add(voter);
+      if (wrong || low) this.priority.add(voter);
+    }
+  }
+  row() {
+    const rated = this.confidence.reduce((a, b) => a + b, 0);
+    return {
+      question_count: this.questionCount,
+      responding_students: this.students.size,
+      responses: this.responses,
+      graded_responses: this.graded,
+      correct_responses: this.graded ? this.correct : "",
+      incorrect_responses: this.graded ? this.wrong : "",
+      accuracy_pct: pct(this.correct, this.graded),
+      incorrect_students: this.graded ? this.incorrect.size : "",
+      confidence_responses: rated,
+      guessing_responses: this.confidence[0],
+      guessing_pct: pct(this.confidence[0], rated),
+      unsure_responses: this.confidence[1],
+      unsure_pct: pct(this.confidence[1], rated),
+      confident_responses: this.confidence[2],
+      confident_pct: pct(this.confidence[2], rated),
+      unrated_responses: this.unrated,
+      low_confidence_students: this.low.size,
+      revision_priority_students: this.priority.size,
+      revision_priority_pct: pct(this.priority.size, this.students.size)
+    };
+  }
+};
+function topics(entry) {
+  if (entry.question.type !== "poll" || !entry.question.revision) return [];
+  const revision = entry.question.revision;
+  const canvas = revision.resources.filter((r) => /^Topic\s+\d+\b/i.test(r.label)).map((r) => r.label);
+  return [...new Set(canvas.length ? canvas : [revision.topic.replace(/^Q\d+:\s*/, "")])];
+}
+function buildSessionReport(data) {
+  const participants = /* @__PURE__ */ new Set();
+  const rows = [];
+  const groups = /* @__PURE__ */ new Map();
+  const addGroup = (key, info, entry) => {
+    let group = groups.get(key);
+    if (!group) groups.set(key, group = { info, totals: new PollTotals() });
+    group.totals.add(entry);
+  };
+  for (const entry of data.questions) {
+    const q = entry.question;
+    for (const [voter] of [...entry.votes, ...entry.answers, ...entry.ratings ?? []]) participants.add(voter);
+    if (q.id === "revision-receipt" && q.type === "wordcloud") continue;
+    const base = {
+      question_id: q.id,
+      question_type: q.type,
+      prompt: q.prompt,
+      status: entry.status,
+      question_count: 1
+    };
+    if (q.type === "poll") {
+      const revision = q.revision;
+      const canvasTopics = topics(entry);
+      Object.assign(base, {
+        answer_revealed: entry.revealed !== null,
+        concept: revision?.topic ?? "",
+        topic: canvasTopics.join(" | "),
+        learning_outcome_id: revision?.outcomes.map((o) => o.id).join(" | ") ?? "",
+        learning_outcome: revision?.outcomes.map((o) => `${o.id}: ${o.text}`).join(" | ") ?? "",
+        canvas_resources: revision?.resources.map((r) => `${r.label}: ${r.url}`).join(" | ") ?? ""
+      });
+      const totals = new PollTotals();
+      totals.add(entry);
+      rows.push({ ...base, record_type: "question", ...totals.row() });
+      const counts = q.options.map(() => 0);
+      for (const [, choice] of entry.votes) counts[choice]++;
+      q.options.forEach((text, i) => rows.push({
+        ...base,
+        record_type: "option",
+        option: String.fromCharCode(65 + i),
+        option_text: text,
+        correct_option: entry.revealed === null ? "" : entry.revealed.includes(i),
+        response_count: counts[i],
+        response_pct: pct(counts[i], entry.votes.length)
+      }));
+      for (const topic of canvasTopics) addGroup("topic:" + topic, { record_type: "topic", topic }, entry);
+      for (const outcome of new Map(revision?.outcomes.map((o) => [o.id, o]) ?? []).values()) {
+        addGroup("outcome:" + outcome.id, {
+          record_type: "learning_outcome",
+          learning_outcome_id: outcome.id,
+          learning_outcome: outcome.text
+        }, entry);
+      }
+    } else if (q.type === "wordcloud") {
+      const tally = /* @__PURE__ */ new Map();
+      for (const [, answers] of entry.answers) for (const answer of answers) tally.set(answer.key, (tally.get(answer.key) ?? 0) + 1);
+      const display = new Map(entry.display), hidden = new Map(entry.hidden);
+      rows.push({
+        ...base,
+        record_type: "question",
+        responding_students: entry.answers.length,
+        responses: [...tally.values()].reduce((a, b) => a + b, 0)
+      });
+      for (const [key, count] of [...tally].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))) {
+        rows.push({
+          ...base,
+          record_type: "wordcloud_response",
+          response_text: display.get(key) ?? key,
+          response_count: count,
+          responding_students: entry.answers.length,
+          response_pct: pct(count, entry.answers.length),
+          hidden: hidden.has(key)
+        });
+      }
+    } else {
+      const ratings = entry.ratings ?? [];
+      rows.push({
+        ...base,
+        record_type: "question",
+        responding_students: ratings.length,
+        responses: ratings.reduce((n, [, values]) => n + values.filter((v) => v !== null).length, 0)
+      });
+      q.statements.forEach((statement, i) => {
+        const counts = q.labels.map(() => 0);
+        for (const [, values] of ratings) if (values[i] !== null) counts[values[i]]++;
+        const n = counts.reduce((a, b) => a + b, 0);
+        q.labels.forEach((label, choice) => rows.push({
+          ...base,
+          record_type: "rating",
+          concept: statement,
+          response_text: label,
+          response_count: counts[choice],
+          response_pct: pct(counts[choice], n)
+        }));
+      });
+    }
+  }
+  rows.push(...[...groups.values()].map((group) => ({ ...group.info, ...group.totals.row() })));
+  return { participants: participants.size, rows };
+}
+function cell(value) {
+  if (value === void 0) return "";
+  if (typeof value === "number") return String(value);
+  if (typeof value === "boolean") return value ? "true" : "false";
+  const safe = /^\s*[=+@-]|^[\t\r\n]/.test(value) ? "'" + value : value;
+  return '"' + safe.replace(/"/g, '""') + '"';
+}
+function sessionCsv(data, exportedAt = (/* @__PURE__ */ new Date()).toISOString()) {
+  const rows = data.report.rows.length ? data.report.rows : [{ record_type: "session" }];
+  return "\uFEFF" + CSV_COLUMNS.join(",") + "\r\n" + rows.map((row) => {
+    const full = { ...row, session: data.session, exported_at: exportedAt, session_participants: data.report.participants };
+    return CSV_COLUMNS.map((column) => cell(full[column])).join(",");
+  }).join("\r\n") + "\r\n";
+}
+
 // src/server/app.ts
 var PAGE_HEADERS = {
   "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
@@ -7444,13 +7669,20 @@ function createApp(deps) {
   app2.get("/api/s/:session/export", async (c) => {
     c.header("Access-Control-Allow-Origin", "*");
     c.header("Cache-Control", "no-store");
+    c.header("X-Content-Type-Options", "nosniff");
     const session = c.req.param("session");
     if (!isSession(session)) return c.json({ error: "invalid session name" }, 404);
     if (!bearerMatches(c.req.header("authorization"), deps.presenterKey(c))) {
       c.header("WWW-Authenticate", 'Bearer realm="live-questions"');
       return c.json({ error: "presenter key required" }, 401);
     }
-    return c.json(await deps.exportRoom(c, session));
+    const data = await deps.exportRoom(c, session);
+    if (c.req.query("format") === "csv") {
+      c.header("Content-Type", "text/csv; charset=utf-8");
+      c.header("Content-Disposition", `attachment; filename="session-results-${session}.csv"`);
+      return c.body(sessionCsv(data));
+    }
+    return c.json(data);
   });
   app2.get("*", async (c) => deps.asset(c, c.req.path));
   app2.notFound((c) => c.text("Not found.", 404));
@@ -8110,7 +8342,7 @@ var Room = class _Room {
   /** Full state for `GET /api/s/:session/export`. */
   export() {
     const { session, live, questions } = this.deckState(true, 0);
-    return { session, live, questions };
+    return { session, live, questions, report: buildSessionReport(this.dump()) };
   }
 };
 function dumpEntry(e) {

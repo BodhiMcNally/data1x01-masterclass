@@ -7,6 +7,7 @@
 import { Hono, type Context, type Env } from "hono";
 import { bearerMatches } from "./auth";
 import { isSession } from "./validate";
+import { sessionCsv, type SessionExport } from './results-export';
 
 export interface AppDeps<E extends Env> {
   /** PRESENTER_KEY for this request (Workers read it from `c.env`). */
@@ -14,7 +15,7 @@ export interface AppDeps<E extends Env> {
   /** Handle `GET /api/s/:session/ws` (already checked: valid session, upgrade header). */
   socket(c: Context<E>, session: string): Response | Promise<Response>;
   /** Full room state for `GET /api/s/:session/export` (already authorized). */
-  exportRoom(c: Context<E>, session: string): Promise<unknown>;
+  exportRoom(c: Context<E>, session: string): Promise<SessionExport>;
   /** Serve a file from `public/`, e.g. "/index.html". Unknown paths resolve to 404. */
   asset(c: Context<E>, path: string): Response | Promise<Response>;
 }
@@ -83,13 +84,20 @@ export function createApp<E extends Env = Env>(deps: AppDeps<E>): Hono<E> {
   app.get("/api/s/:session/export", async (c) => {
     c.header("Access-Control-Allow-Origin", "*");
     c.header("Cache-Control", "no-store");
+    c.header("X-Content-Type-Options", "nosniff");
     const session = c.req.param("session");
     if (!isSession(session)) return c.json({ error: "invalid session name" }, 404);
     if (!bearerMatches(c.req.header("authorization"), deps.presenterKey(c))) {
       c.header("WWW-Authenticate", 'Bearer realm="live-questions"');
       return c.json({ error: "presenter key required" }, 401);
     }
-    return c.json(await deps.exportRoom(c, session));
+    const data = await deps.exportRoom(c, session);
+    if (c.req.query('format') === 'csv') {
+      c.header('Content-Type', 'text/csv; charset=utf-8');
+      c.header('Content-Disposition', `attachment; filename="session-results-${session}.csv"`);
+      return c.body(sessionCsv(data));
+    }
+    return c.json(data);
   });
 
   // Everything else (vote.js, vote.css, ...) comes from public/.

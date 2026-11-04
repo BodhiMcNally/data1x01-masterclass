@@ -15,6 +15,7 @@ Students join once through a QR code and participate from their own browser. No 
 - **Confidence ratings:** students select Guessing, Unsure or Confident after voting. The presentation reveals the class distribution as percentages alongside the answer results.
 - **Worked explanations:** revealing an answer closes voting and highlights the reasoning behind each option.
 - **Revision receipts:** students receive their own priorities from incorrect or low-confidence answers, with Canvas topic links and relevant learning outcomes. Receipts can be downloaded or opened in a personal email app. Email addresses are not collected by the voting service.
+- **Session results export:** presenters can download a CSV containing answer distributions, accuracy, confidence, Canvas topic and learning-outcome summaries, and the opening word-cloud responses with counts. The report contains aggregate results without student identifiers.
 - **Session feedback:** a QR code links to a separate, voluntary Qualtrics survey with anonymised responses enabled.
 
 The presentation also includes interactive demonstrations, short-answer marking criteria and an example revision error log. A full-screen control is available throughout the deck; the standard Reveal.js keyboard shortcuts are retained.
@@ -66,6 +67,14 @@ node scripts/check-learning-features.mjs
 The rendered HTML is self-contained and supports offline presentation. Live voting requires a connection to the deployed voting service. The optional R Shiny companion runs locally and is separate from the hosted presentation.
 
 Students can return to their revision receipt using the same browser and session, or retain a downloaded copy. Canvas resources require a University login. These formative results support revision planning; they are not an exam score prediction.
+
+## Session reporting
+
+While connected as presenter, select **Export session CSV** in **Voting settings** or on the personal revision-receipt slide. Download the report before ending voting or starting a new session. It is a snapshot of the current session and can be exported again as responses arrive.
+
+The CSV includes question and option results, unique student counts for each Canvas topic and learning outcome, and every submitted word-cloud phrase with its frequency. Guessing and Unsure count as low confidence. Revision-priority counts combine incorrect and low-confidence responses, counting each student once within each topic or learning outcome. Correctness is calculated only for revealed answers; missing confidence ratings remain separate.
+
+See [Session results export](docs/Session_Results_Export.md) for the CSV fields and denominators. Downloads require the presenter key, which is sent in an authorisation header and never included in the CSV or download URL.
 
 ## Context and attribution
 

@@ -52,7 +52,7 @@ console.log('Learning feature checks passed: confidence, privacy, reveal, receip
 
 // The self-contained deck needs an explicit index route when html_handling is none.
 import {createApp} from './app';
-const app = createApp({presenterKey:()=>undefined,socket:()=>new Response(null,{status:426}),exportRoom:async()=>({}),asset:(_c,path)=>new Response(path,{headers:{'Content-Type':'text/html'}})});
+const app = createApp({presenterKey:()=>undefined,socket:()=>new Response(null,{status:426}),exportRoom:async()=>Room.create('test').export(),asset:(_c,path)=>new Response(path,{headers:{'Content-Type':'text/html'}})});
 const response = await app.request('http://test/slides/');
 assert.equal(response.status,200);assert.equal(await response.text(),'/slides/index.html');
 assert.equal(response.headers.get('Content-Security-Policy'),null,'self-contained deck retains its inline scripts');

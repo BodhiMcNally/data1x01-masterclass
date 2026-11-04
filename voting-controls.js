@@ -54,10 +54,53 @@
       <label class="voting-remember"><input id="voting-remember" type="checkbox" checked> Remember on this browser</label>
       <p id="voting-error" role="alert"></p>
       <div class="voting-actions"><button id="voting-connect" type="submit">Start a new session</button><button id="voting-cancel" type="button">Cancel</button></div>
-      <div class="voting-secondary"><button id="voting-end" type="button">End live voting</button><button id="voting-forget" type="button">Forget saved connection</button></div>
+      <div class="voting-secondary"><button id="voting-export" type="button" disabled>Export session CSV</button><button id="voting-end" type="button">End live voting</button><button id="voting-forget" type="button">Forget saved connection</button></div>
+      <p id="voting-export-status" role="status"></p>
       </form>`;
     document.body.append(dialog);
     const field = name => dialog.querySelector('#voting-' + name);
+    const receiptSlide = document.getElementById('revision-receipt-slide');
+    const resultsControls = document.createElement('div');
+    resultsControls.className = 'session-results-controls';
+    resultsControls.hidden = true;
+    resultsControls.innerHTML = '<button type="button" id="session-results-export">Export session CSV</button><span role="status" aria-live="polite"></span>';
+    receiptSlide?.append(resultsControls);
+    const exportButtons = [field('export'), resultsControls.querySelector('button')];
+    let exporting = false;
+    const exportStatus = text => {
+      field('export-status').textContent = text;
+      resultsControls.querySelector('[role=status]').textContent = text;
+    };
+    async function exportResults() {
+      if (exporting) return;
+      exporting = true;
+      exportButtons.forEach(button => { button.disabled = true; button.setAttribute('aria-busy', 'true'); });
+      exportStatus('Preparing session results…');
+      try {
+        const current = new URL(location.href), server = origin(current.searchParams.get('lq-server') || '');
+        const session = current.searchParams.get('session'), key = keyFor(server);
+        if (!session || !key) throw Error('Connect to your live session before exporting its results.');
+        const response = await fetch(server + '/api/s/' + encodeURIComponent(session) + '/export?format=csv', {
+          headers: {Authorization: 'Bearer ' + key}, cache: 'no-store', signal: AbortSignal.timeout(20000),
+        });
+        if (response.status === 401) throw Error('Presenter access was not accepted. Reconnect using Voting settings.');
+        if (!response.ok) throw Error('The results could not be exported. Please try again.');
+        if (!response.headers.get('Content-Type')?.startsWith('text/csv')) throw Error('The voting server needs the session export update. Refresh the presentation and try again.');
+        const blob = await response.blob(), download = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = download;
+        anchor.download = 'session-results-' + session.replace(/[^A-Za-z0-9_-]/g, '_') + '.csv';
+        document.body.append(anchor); anchor.click(); anchor.remove();
+        setTimeout(() => URL.revokeObjectURL(download), 1000);
+        exportStatus('Session CSV downloaded.');
+      } catch (err) {
+        exportStatus(err.name === 'TimeoutError' ? 'The export timed out. Please try again.' : err.message);
+      } finally {
+        exporting = false;
+        exportButtons.forEach(button => { button.disabled = document.documentElement.dataset.lqMode !== 'presenter'; button.removeAttribute('aria-busy'); });
+      }
+    }
+    exportButtons.forEach(button => { button.onclick = event => { event.stopPropagation(); void exportResults(); }; });
     function show() {
       const p = read(), url = new URL(location.href);
       field('server').value = url.searchParams.get('lq-server') || p.server || (location.protocol === 'https:' && location.pathname.startsWith('/slides/') ? location.origin : '');
@@ -142,6 +185,10 @@
     };
     const update=()=>{
       const mode=document.documentElement.dataset.lqMode;
+      field('export').disabled = mode !== 'presenter' || exporting;
+      resultsControls.hidden = mode !== 'presenter';
+      if (mode !== 'presenter' && !exporting) exportStatus('Connect to live voting to export session results.');
+      else if (mode === 'presenter' && field('export-status').textContent === 'Connect to live voting to export session results.') exportStatus('');
       start.textContent=mode==='presenter'?'Show joining QR':'Start live voting';
       status.textContent=mode==='presenter'?'Live voting connected. Students can join now.':new URL(location.href).searchParams.has('lq-server')?'Connecting to live voting… Use Voting settings if it does not connect.':'Present offline or start a live session.';
     };

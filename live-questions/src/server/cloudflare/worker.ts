@@ -10,6 +10,7 @@ import { Hub, PING, PONG, type HubHost, type PeerInfo } from "../hub";
 import { Room, type QuestionData, type RoomData } from "../room";
 import type { QuestionId } from "../../shared/protocol";
 import { isSession } from "../validate";
+import type { SessionExport } from '../results-export';
 
 export interface Env {
   ROOMS: DurableObjectNamespace<SessionRoom>;
@@ -61,7 +62,7 @@ function toRoom(env: Env, session: string, path: string, init?: RequestInit): Pr
 const app = createApp<{ Bindings: Env }>({
   presenterKey: (c) => c.env.PRESENTER_KEY || undefined,
   socket: (c, session) => toRoom(c.env, session, "/ws", { headers: c.req.raw.headers }),
-  exportRoom: async (c, session) => (await toRoom(c.env, session, "/export")).json(),
+  exportRoom: async (c, session) => (await toRoom(c.env, session, "/export")).json() as Promise<SessionExport>,
   asset: (c, path) => c.env.ASSETS.fetch(new URL(path, c.req.url)),
 });
 

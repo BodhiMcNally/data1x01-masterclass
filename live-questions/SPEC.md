@@ -398,6 +398,7 @@ are no CDN requests.
 | `GET /s/:session` | audience page (404 if the session name is invalid) |
 | `GET /api/s/:session/ws` | WebSocket upgrade |
 | `GET /api/s/:session/export` | full room JSON including hidden words; requires `Authorization: Bearer <PRESENTER_KEY>` |
+| `GET /api/s/:session/export?format=csv` | aggregate question, topic, learning-outcome and word-cloud report; same presenter authorisation; no voter IDs |
 
 `/s/:session/` redirects to `/s/:session`. The HTML routes send a strict
 Content-Security-Policy (same-origin scripts, styles and sockets only). The

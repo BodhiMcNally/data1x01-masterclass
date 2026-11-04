@@ -25,6 +25,7 @@ import {
 } from "../shared/protocol";
 import { normalizeAnswer } from "../shared/normalize";
 import { validateQuestion } from "./validate";
+import { buildSessionReport, type SessionExport } from './results-export';
 
 /** Who sent a message, as established by that socket's `hello`. */
 export interface Sender {
@@ -568,9 +569,9 @@ export class Room {
   }
 
   /** Full state for `GET /api/s/:session/export`. */
-  export(): { session: string; live: QuestionId | null; questions: Record<QuestionId, QuestionState> } {
+  export(): SessionExport {
     const { session, live, questions } = this.deckState(true, 0);
-    return { session, live, questions };
+    return { session, live, questions, report: buildSessionReport(this.dump()) };
   }
 }
 
