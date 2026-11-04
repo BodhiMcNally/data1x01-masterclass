@@ -11,7 +11,11 @@
       "/",
       "/s/*",
       "/api/*",
-      "/healthz"
+      "/healthz",
+      "/slides",
+      "/slides/*",
+      "/feedback",
+      "/feedback/*"
     ]
   },
   "durable_objects": {

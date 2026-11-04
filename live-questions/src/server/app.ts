@@ -39,6 +39,15 @@ async function page<E extends Env>(deps: AppDeps<E>, c: Context<E>, path: string
 export function createApp<E extends Env = Env>(deps: AppDeps<E>): Hono<E> {
   const app = new Hono<E>();
 
+  // html_handling:none keeps voting URLs intact; map the deck directory explicitly.
+  app.get("/slides/", async (c) => {
+    const res = await deps.asset(c, "/slides/index.html");
+    const out = new Response(res.body, {status:res.status,headers:res.headers});
+    out.headers.set("Cache-Control", "no-cache");
+    return out;
+  });
+  app.get("/slides", (c) => c.redirect("/slides/", 302));
+
   app.get("/feedback/", (c) => page(deps, c, "/feedback/index.html"));
   app.get("/feedback", (c) => c.redirect("/feedback/", 302));
 

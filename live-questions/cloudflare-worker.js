@@ -2029,6 +2029,13 @@ async function page(deps, c, path, status = 200) {
 }
 function createApp(deps) {
   const app2 = new Hono3();
+  app2.get("/slides/", async (c) => {
+    const res = await deps.asset(c, "/slides/index.html");
+    const out = new Response(res.body, { status: res.status, headers: res.headers });
+    out.headers.set("Cache-Control", "no-cache");
+    return out;
+  });
+  app2.get("/slides", (c) => c.redirect("/slides/", 302));
   app2.get("/feedback/", (c) => page(deps, c, "/feedback/index.html"));
   app2.get("/feedback", (c) => c.redirect("/feedback/", 302));
   app2.get("/healthz", (c) => c.text("ok"));
