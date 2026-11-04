@@ -152,3 +152,13 @@ The shared DATA1001/DATA1901 Semester 2 2026 core and current practice papers gu
 Recordings and separately linked interview transcripts remain outside the original review. Some quiz equation images were unavailable as text. No official detailed extended-answer marking scheme was linked. The short-answer allocations are suggested practice marks. SA3 addresses the reporting component of LO10, rather than the full teamwork and oral-presentation outcome.
 
 The project contains original questions and simulated data. Restricted course PDFs, authentication material and browser research captures are not included. There is no appendix, references slide, presenter-note content or countdown.
+
+## Session check-in, confidence and revision receipts
+
+The third slide opens a live word cloud. Each MCQ now asks for Guessing, Unsure or Confident after A–D voting. Changing the answer clears its confidence rating; both are locked when the answer is revealed. The presentation reveals aggregate confidence alongside class accuracy.
+
+The closing revision-receipt slide switches the same audience page to each student's own priorities, linked to the audited Canvas topic pages and learning outcomes. Students can also use **My revision receipt** throughout the session and download a plain-text copy. Results appear only after reveal. Use the same browser and session to return later; clearing browser storage or using another browser changes the random voter identity. This is a practice revision aid, not a grade or validated exam prediction. No name or student number is requested. The server retains the random-identity votes and confidence in the session, as it does for existing voting.
+
+The penultimate slide's feedback QR opens the stable `/feedback/` landing page. The QR is configured to the published Qualtrics feedback survey. See `docs/Feedback_Survey_Setup.md` and `resources/Qualtrics_Feedback_Import.txt`. Until configured, the landing page says the survey is being prepared.
+
+The revision mapping is generated from slide footers, the source inventory and curriculum blueprint by `scripts/build_revision_catalog.py`. When adding questions, update that script's expected question count and keep the relevant source footer accurate. GitHub Actions now rebuilds the voting bundles before publishing.

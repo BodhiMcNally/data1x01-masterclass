@@ -137,6 +137,7 @@ class VotePage {
   private pendingRatings = new Map<string, number>();
   /** Identity of the view currently in the DOM; rebuilt only when it changes. */
   private viewKey = "";
+  private showReceipt = false;
   private toastTimer: number | undefined;
   private readonly voter = voterId();
 
@@ -152,6 +153,9 @@ class VotePage {
       if (document.visibilityState === "visible" && this.conn === "offline") this.connectNow();
     });
     window.addEventListener("online", () => this.conn === "offline" && this.connectNow());
+    const receipt = h("button", { class: "receipt-toggle", type: "button" }, "My revision receipt");
+    receipt.addEventListener("click", () => { this.showReceipt = !this.showReceipt; this.viewKey = ""; this.render(); receipt.textContent = this.showReceipt ? "Back to live voting" : "My revision receipt"; });
+    this.main.before(receipt);
     this.connect();
   }
 
@@ -191,6 +195,9 @@ class VotePage {
   private connectNow(): void {
     if (this.ws) return;
     this.retry = 0;
+    const receipt = h("button", { class: "receipt-toggle", type: "button" }, "My revision receipt");
+    receipt.addEventListener("click", () => { this.showReceipt = !this.showReceipt; this.viewKey = ""; this.render(); receipt.textContent = this.showReceipt ? "Back to live voting" : "My revision receipt"; });
+    this.main.before(receipt);
     this.connect();
   }
 
@@ -290,6 +297,12 @@ class VotePage {
   private render(): void {
     if (this.conn === "outdated") return;
     const live = this.state?.live ?? null;
+    if (this.showReceipt || live?.question.id === "revision-receipt") {
+      const key = "receipt|" + JSON.stringify(this.mine.review ?? []);
+      if (key !== this.viewKey) { this.viewKey = key; this.main.replaceChildren(this.receiptView()); }
+      this.main.classList.remove("is-disabled");
+      return;
+    }
     if (!this.state) return; // still showing "Connecting"
     let key: string;
     if (!live) key = "waiting";
@@ -297,7 +310,7 @@ class VotePage {
     else {
       // Closed views are static: rebuild only when what they show changes.
       const id = live.question.id;
-      key = `closed|${JSON.stringify([live, this.mine.votes[id], this.mine.answers[id], this.mine.ratings[id]])}`;
+      key = `closed|${JSON.stringify([live, this.mine.votes[id], this.mine.answers[id], this.mine.ratings[id], this.mine.confidence?.[id]])}`;
     }
     const rebuild = key !== this.viewKey;
     this.viewKey = key;
@@ -308,7 +321,7 @@ class VotePage {
       return;
     }
     if (live.status === "open" && live.question.type === "poll") {
-      if (rebuild) this.main.replaceChildren(this.pollView(live.question.id, live.question.prompt, live.question.options));
+      if (rebuild) this.main.replaceChildren(this.pollView(live.question.id, live.question.prompt, live.question.options, live.question.confidence === true));
       this.updatePoll(live.question.id);
     } else if (live.status === "open" && live.question.type === "wordcloud") {
       if (rebuild) this.main.replaceChildren(this.cloudView(live.question));
@@ -317,7 +330,10 @@ class VotePage {
       if (rebuild) this.main.replaceChildren(this.likertView(live.question));
       this.updateLikert(live.question);
     } else if (rebuild) {
-      this.main.replaceChildren(this.resultsView(live));
+      const results = this.resultsView(live);
+      const confidence = this.mine.confidence?.[live.question.id];
+      if (confidence !== undefined) results.append(h("p", {class:"hint"}, "Your confidence: " + ["Guessing", "Unsure", "Confident"][confidence]));
+      this.main.replaceChildren(results);
     }
     if (rebuild) this.main.focus({ preventScroll: true });
   }
@@ -344,7 +360,7 @@ class VotePage {
 
   // ---- poll
 
-  private pollView(id: string, prompt: string, options: string[]): HTMLElement {
+  private pollView(id: string, prompt: string, options: string[], confidence: boolean): HTMLElement {
     const list = h("div", { class: "options", role: "radiogroup", "aria-label": prompt || "Options" });
     options.forEach((label, i) => {
       const btn = h(
@@ -372,6 +388,7 @@ class VotePage {
       { class: "view" },
       this.header(prompt, "open", "Tap one. You can change your vote until voting closes."),
       list,
+      confidence ? this.confidenceView(id) : null,
       h("p", { class: "saved", id: "saved", "aria-live": "polite" }),
     );
   }
@@ -388,6 +405,13 @@ class VotePage {
 
   private updatePoll(id: string): void {
     const confirmed = this.mine.votes[id];
+    this.main.querySelectorAll<HTMLButtonElement>(".confidence-choice").forEach(btn => {
+      btn.disabled = confirmed === undefined || this.pendingVote !== null;
+      btn.setAttribute("aria-pressed", String(!this.pendingVote && this.mine.confidence?.[id] === Number(btn.dataset.confidence)));
+    });
+    const hint = this.main.querySelector(".confidence-saved");
+    if (hint) hint.textContent = this.pendingVote ? "Saving your answer…" : confirmed === undefined ? "Choose A–D first." :
+      this.mine.confidence?.[id] === undefined ? "How confident are you?" : "Confidence saved.";
     const shown = this.pendingVote?.id === id ? this.pendingVote.choice : confirmed;
     const multiple = this.main.querySelectorAll<HTMLButtonElement>(".option");
     let tabbable = false;
@@ -406,6 +430,51 @@ class VotePage {
       saved.textContent =
         this.pendingVote?.id === id ? "Sending…" : confirmed !== undefined ? `Vote saved: ${letter(confirmed)}` : "";
     }
+  }
+
+  private confidenceView(id: string): HTMLElement {
+    const group = h("div", { class: "confidence-options", role: "group", "aria-label": "Confidence in your answer" });
+    ["Guessing", "Unsure", "Confident"].forEach((label, choice) => {
+      const b = h("button", { class: "confidence-choice", type: "button", "data-confidence": choice, "aria-pressed": "false" }, label);
+      b.addEventListener("click", () => {
+        if (!this.send({ t: "confidence", id, choice: choice as 0 | 1 | 2 })) this.toast("Reconnect before saving confidence.");
+      });
+      group.append(b);
+    });
+    return h("div", { class: "confidence-panel" }, h("h2", { class: "sub" }, "How confident are you?"), group,
+      h("p", { class: "confidence-saved", "aria-live": "polite" }));
+  }
+
+  private receiptView(): HTMLElement {
+    const rows = this.mine.review ?? [];
+    const view = h("section", { class: "view receipt" }, h("h1", {}, "Your revision receipt"),
+      h("p", { class: "hint" }, "Based on answers revealed in this session. Only your own responses appear here. Keep using the same browser to return to it."));
+    if (!rows.length) { view.append(h("p", {}, "Your receipt will fill in after answers are revealed. No results are available yet.")); return view; }
+    const priorities = rows.filter(r => r.choice !== null && (!r.correct || r.confidence === null || r.confidence < 2));
+    const missed = rows.filter(r => r.choice === null);
+    const secure = rows.filter(r => r.choice !== null && r.correct && r.confidence === 2);
+    view.append(h("p", { class: "receipt-summary" }, `${rows.filter(r=>r.choice!==null).length} attempted · ${rows.filter(r=>r.correct).length} correct · ${priorities.length} to revisit`));
+    const labels = ["Guessing", "Unsure", "Confident"];
+    const groups = [["Your revision priorities", priorities], ["Not attempted: check these too", missed], ["Correct and confident: maintain these", secure]] as const;
+    const lines = ["DATA1x01 personal revision receipt", "", "Formative practice only. This is not a prediction of your exam mark."];
+    for (const [heading, items] of groups) {
+      if (!items.length) continue;
+      view.append(h("h2", {}, heading)); lines.push("", heading);
+      for (const r of items) {
+        const result = r.choice === null ? "Not attempted" : (r.correct ? "Correct" : "Incorrect") + " · " + (r.confidence === null ? "Confidence not recorded" : labels[r.confidence]);
+        const card = h("article", { class: "receipt-card" }, h("h3", {}, r.revision.topic), h("p", {}, result));
+        lines.push("", r.revision.topic + ": " + result);
+        for (const o of r.revision.outcomes) { card.append(h("p", { class: "receipt-outcome" }, `${o.id}: ${o.text}`)); lines.push(o.id + ": " + o.text); }
+        const links = h("ul", {});
+        for (const a of r.revision.resources) { links.append(h("li", {}, h("a", { href: a.url, target: "_blank", rel: "noopener noreferrer" }, a.label))); lines.push(a.label + ": " + a.url); }
+        card.append(links); view.append(card);
+      }
+    }
+    const save = h("button", { class: "send", type: "button" }, "Download my receipt (.txt)");
+    save.addEventListener("click", () => { const u=URL.createObjectURL(new Blob([lines.join("\n")], {type:"text/plain;charset=utf-8"})); const a=h("a",{href:u,download:"DATA1x01-revision-receipt.txt"}); a.click(); setTimeout(()=>URL.revokeObjectURL(u),1000); });
+    view.append(save, h("p", { class: "hint" }, "Canvas links require your University login. Use these priorities alongside the full course revision material."),
+      h("a", { href: "/feedback/", target: "_blank", rel: "noopener noreferrer" }, "Give feedback on the session"));
+    return view;
   }
 
   // ---- word cloud
@@ -597,6 +666,7 @@ class VotePage {
         many ? "Rate each statement. You can change a rating until voting closes." : "Tap one. You can change it until voting closes.",
       ),
       list,
+      confidence ? this.confidenceView(id) : null,
       h("p", { class: "saved", id: "saved", "aria-live": "polite" }),
     );
   }

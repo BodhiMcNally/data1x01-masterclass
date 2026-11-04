@@ -31,9 +31,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// research/live-questions-upstream/node_modules/ws/lib/constants.js
+// node_modules/ws/lib/constants.js
 var require_constants = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/constants.js"(exports, module) {
+  "node_modules/ws/lib/constants.js"(exports, module) {
     "use strict";
     var BINARY_TYPES = ["nodebuffer", "arraybuffer", "fragments"];
     var hasBlob = typeof Blob !== "undefined";
@@ -54,9 +54,9 @@ var require_constants = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/buffer-util.js
+// node_modules/ws/lib/buffer-util.js
 var require_buffer_util = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/buffer-util.js"(exports, module) {
+  "node_modules/ws/lib/buffer-util.js"(exports, module) {
     "use strict";
     var { websocketMask, websocketUnmask } = __require("http");
     var { EMPTY_BUFFER } = require_constants();
@@ -139,9 +139,9 @@ var require_buffer_util = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/limiter.js
+// node_modules/ws/lib/limiter.js
 var require_limiter = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/limiter.js"(exports, module) {
+  "node_modules/ws/lib/limiter.js"(exports, module) {
     "use strict";
     var kDone = Symbol("kDone");
     var kRun = Symbol("kRun");
@@ -189,9 +189,9 @@ var require_limiter = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/permessage-deflate.js
+// node_modules/ws/lib/permessage-deflate.js
 var require_permessage_deflate = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/permessage-deflate.js"(exports, module) {
+  "node_modules/ws/lib/permessage-deflate.js"(exports, module) {
     "use strict";
     var zlib = __require("zlib");
     var bufferUtil = require_buffer_util();
@@ -572,9 +572,9 @@ var require_permessage_deflate = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/validation.js
+// node_modules/ws/lib/validation.js
 var require_validation = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/validation.js"(exports, module) {
+  "node_modules/ws/lib/validation.js"(exports, module) {
     "use strict";
     var { isUtf8 } = __require("buffer");
     var { hasBlob } = require_constants();
@@ -773,9 +773,9 @@ var require_validation = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/receiver.js
+// node_modules/ws/lib/receiver.js
 var require_receiver = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/receiver.js"(exports, module) {
+  "node_modules/ws/lib/receiver.js"(exports, module) {
     "use strict";
     var { Writable } = __require("stream");
     var PerMessageDeflate2 = require_permessage_deflate();
@@ -1396,9 +1396,9 @@ var require_receiver = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/sender.js
+// node_modules/ws/lib/sender.js
 var require_sender = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/sender.js"(exports, module) {
+  "node_modules/ws/lib/sender.js"(exports, module) {
     "use strict";
     var { Duplex } = __require("stream");
     var { randomFillSync } = __require("crypto");
@@ -1892,9 +1892,9 @@ var require_sender = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/event-target.js
+// node_modules/ws/lib/event-target.js
 var require_event_target = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/event-target.js"(exports, module) {
+  "node_modules/ws/lib/event-target.js"(exports, module) {
     "use strict";
     var { kForOnEventAttribute, kListener } = require_constants();
     var kCode = Symbol("kCode");
@@ -2121,9 +2121,9 @@ var require_event_target = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/extension.js
+// node_modules/ws/lib/extension.js
 var require_extension = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/extension.js"(exports, module) {
+  "node_modules/ws/lib/extension.js"(exports, module) {
     "use strict";
     var { tokenChars } = require_validation();
     function push(dest, name, elem) {
@@ -2274,9 +2274,9 @@ var require_extension = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/websocket.js
+// node_modules/ws/lib/websocket.js
 var require_websocket = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/websocket.js"(exports, module) {
+  "node_modules/ws/lib/websocket.js"(exports, module) {
     "use strict";
     var EventEmitter = __require("events");
     var https = __require("https");
@@ -3188,9 +3188,9 @@ var require_websocket = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/stream.js
+// node_modules/ws/lib/stream.js
 var require_stream = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/stream.js"(exports, module) {
+  "node_modules/ws/lib/stream.js"(exports, module) {
     "use strict";
     var WebSocket2 = require_websocket();
     var { Duplex } = __require("stream");
@@ -3286,9 +3286,9 @@ var require_stream = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/subprotocol.js
+// node_modules/ws/lib/subprotocol.js
 var require_subprotocol = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/subprotocol.js"(exports, module) {
+  "node_modules/ws/lib/subprotocol.js"(exports, module) {
     "use strict";
     var { tokenChars } = require_validation();
     function parse(header) {
@@ -3331,9 +3331,9 @@ var require_subprotocol = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/ws/lib/websocket-server.js
+// node_modules/ws/lib/websocket-server.js
 var require_websocket_server = __commonJS({
-  "research/live-questions-upstream/node_modules/ws/lib/websocket-server.js"(exports, module) {
+  "node_modules/ws/lib/websocket-server.js"(exports, module) {
     "use strict";
     var EventEmitter = __require("events");
     var http = __require("http");
@@ -3732,15 +3732,15 @@ var require_websocket_server = __commonJS({
   }
 });
 
-// research/live-questions-upstream/node_modules/@hono/node-server/dist/constants-BLSFu_RU.mjs
+// node_modules/@hono/node-server/dist/constants-BLSFu_RU.mjs
 var X_ALREADY_SENT = "x-hono-already-sent";
 
-// research/live-questions-upstream/node_modules/@hono/node-server/dist/index.mjs
+// node_modules/@hono/node-server/dist/index.mjs
 import { STATUS_CODES, ServerResponse, createServer } from "node:http";
 import { Http2ServerRequest, constants } from "node:http2";
 import { Readable } from "node:stream";
 
-// research/live-questions-upstream/node_modules/hono/dist/helper/websocket/index.js
+// node_modules/hono/dist/helper/websocket/index.js
 var defineWebSocketHelper = (handler) => {
   return ((...args) => {
     if (typeof args[0] === "function") {
@@ -3761,7 +3761,7 @@ var defineWebSocketHelper = (handler) => {
   });
 };
 
-// research/live-questions-upstream/node_modules/@hono/node-server/dist/index.mjs
+// node_modules/@hono/node-server/dist/index.mjs
 var RequestError = class extends Error {
   constructor(message, options) {
     super(message, options);
@@ -5091,7 +5091,7 @@ var serve = (options, listeningListener) => {
   return server2;
 };
 
-// research/live-questions-upstream/node_modules/@hono/node-server/dist/utils/stream.mjs
+// node_modules/@hono/node-server/dist/utils/stream.mjs
 import { Readable as Readable2 } from "node:stream";
 import { versions } from "node:process";
 var pr54206Applied = () => {
@@ -5153,7 +5153,7 @@ var createStreamBody = (stream, useNativeReadableToWeb = useReadableToWeb) => {
   });
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/utils/mime.js
+// node_modules/hono/dist/utils/mime.js
 var getMimeType = (filename, mimes = baseMimes) => {
   const match2 = filename.match(/\.([a-zA-Z0-9]+?)$/);
   if (!match2) return;
@@ -5218,7 +5218,7 @@ var baseMimes = {
   glb: "model/gltf-binary"
 };
 
-// research/live-questions-upstream/node_modules/@hono/node-server/dist/serve-static.mjs
+// node_modules/@hono/node-server/dist/serve-static.mjs
 import { createReadStream, existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 var COMPRESSIBLE_CONTENT_TYPE_REGEX = /^\s*(?:text\/[^;\s]+|application\/(?:javascript|json|xml|xml-dtd|ecmascript|dart|postscript|rtf|tar|toml|vnd\.dart|vnd\.ms-fontobject|vnd\.ms-opentype|wasm|x-httpd-php|x-javascript|x-ns-proxy-autoconfig|x-sh|x-tar|x-virtualbox-hdd|x-virtualbox-ova|x-virtualbox-ovf|x-virtualbox-vbox|x-virtualbox-vdi|x-virtualbox-vhd|x-virtualbox-vmdk|x-www-form-urlencoded)|font\/(?:otf|ttf)|image\/(?:bmp|vnd\.adobe\.photoshop|vnd\.microsoft\.icon|vnd\.ms-dds|x-icon|x-ms-bmp)|message\/rfc822|model\/gltf-binary|x-shader\/x-fragment|x-shader\/x-vertex|[^;\s]+?\+(?:json|text|xml|yaml))(?:[;\s]|$)/i;
@@ -5366,12 +5366,12 @@ var serveStatic = (options = { root: "" }) => {
   };
 };
 
-// output/data1x01-masterclass/live-questions/src/server/node/main.ts
+// src/server/node/main.ts
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname, join as join2, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// research/live-questions-upstream/node_modules/ws/wrapper.mjs
+// node_modules/ws/wrapper.mjs
 var import_stream2 = __toESM(require_stream(), 1);
 var import_extension = __toESM(require_extension(), 1);
 var import_permessage_deflate = __toESM(require_permessage_deflate(), 1);
@@ -5381,15 +5381,15 @@ var import_subprotocol = __toESM(require_subprotocol(), 1);
 var import_websocket = __toESM(require_websocket(), 1);
 var import_websocket_server = __toESM(require_websocket_server(), 1);
 
-// research/live-questions-upstream/node_modules/hono/dist/request/constants.js
+// node_modules/hono/dist/request/constants.js
 var GET_MATCH_RESULT = Symbol();
 
-// research/live-questions-upstream/node_modules/hono/dist/utils/buffer.js
+// node_modules/hono/dist/utils/buffer.js
 var bufferToFormData = (arrayBuffer, contentType2) => {
   return new Response(arrayBuffer, { headers: { "Content-Type": contentType2.replace(/^[^;]+/, (mediaType) => mediaType.toLowerCase()) } }).formData();
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/utils/body.js
+// node_modules/hono/dist/utils/body.js
 var MAX_NESTED_OBJECTS = 1e4;
 var isRawRequest = (request) => "headers" in request;
 var parseBody = async (request, options = /* @__PURE__ */ Object.create(null)) => {
@@ -5453,7 +5453,7 @@ var throwNestingLimitExceeded = () => {
   throw new Error("Nesting limit exceeded");
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/utils/url.js
+// node_modules/hono/dist/utils/url.js
 var splitPath = (path) => {
   const paths = path.split("/");
   if (paths[0] === "") paths.shift();
@@ -5638,7 +5638,7 @@ var getQueryParams = (url, key) => {
 };
 var decodeURIComponent_ = decodeURIComponent;
 
-// research/live-questions-upstream/node_modules/hono/dist/request.js
+// node_modules/hono/dist/request.js
 var HonoRequest = class {
   /**
   * `.raw` can get the raw Request object.
@@ -5908,7 +5908,7 @@ var HonoRequest = class {
   }
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/utils/html.js
+// node_modules/hono/dist/utils/html.js
 var HtmlEscapedCallbackPhase = {
   Stringify: 1,
   BeforeStream: 2,
@@ -5938,7 +5938,7 @@ var resolveCallback = async (str, phase, preserveCallbacks, context, buffer) => 
   else return resStr;
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/context.js
+// node_modules/hono/dist/context.js
 var TEXT_PLAIN = "text/plain; charset=UTF-8";
 var setDefaultContentType = (contentType2, headers) => {
   return {
@@ -6316,7 +6316,7 @@ var Context = class {
   };
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/compose.js
+// node_modules/hono/dist/compose.js
 var compose = (middleware, onError, onNotFound) => {
   return (context, next) => {
     let index = -1;
@@ -6347,7 +6347,7 @@ var compose = (middleware, onError, onNotFound) => {
   };
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/router.js
+// node_modules/hono/dist/router.js
 var METHODS = [
   "get",
   "post",
@@ -6361,10 +6361,10 @@ var MESSAGE_MATCHER_IS_ALREADY_BUILT = "Can not add a route since the matcher is
 var UnsupportedPathError = class extends Error {
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/utils/constants.js
+// node_modules/hono/dist/utils/constants.js
 var COMPOSED_HANDLER = "__COMPOSED_HANDLER";
 
-// research/live-questions-upstream/node_modules/hono/dist/utils/mount.js
+// node_modules/hono/dist/utils/mount.js
 var getPathPrefixLength = (c, pathPrefix, routePath) => {
   if (!/[:*]/.test(pathPrefix)) return pathPrefix.length;
   const path = c.req.path;
@@ -6395,7 +6395,7 @@ var createMountedRequest = (c, pathPrefix, routePath) => {
   return new Request(url, c.req.raw);
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/hono-base.js
+// node_modules/hono/dist/hono-base.js
 var notFoundHandler = (c) => {
   return c.text("404 Not Found", 404);
 };
@@ -6729,10 +6729,10 @@ var Hono = class Hono2 {
   };
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/router/utils.js
+// node_modules/hono/dist/router/utils.js
 var createNullObject = () => /* @__PURE__ */ Object.create(null);
 
-// research/live-questions-upstream/node_modules/hono/dist/router/reg-exp-router/matcher.js
+// node_modules/hono/dist/router/reg-exp-router/matcher.js
 var emptyParam = [];
 function match(method, path) {
   const matchers = this.buildAllMatchers();
@@ -6749,7 +6749,7 @@ function match(method, path) {
   return match2(method, path);
 }
 
-// research/live-questions-upstream/node_modules/hono/dist/router/reg-exp-router/node.js
+// node_modules/hono/dist/router/reg-exp-router/node.js
 var LABEL_REG_EXP_STR = "[^/]+";
 var ONLY_WILDCARD_REG_EXP_STR = "[^]*";
 var TAIL_WILDCARD_REG_EXP_STR = "(?:|/[^]*)";
@@ -6833,7 +6833,7 @@ var Node = class Node2 {
   }
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/router/reg-exp-router/trie.js
+// node_modules/hono/dist/router/reg-exp-router/trie.js
 var Trie = class {
   #context = { varIndex: 0 };
   #root = new Node();
@@ -6908,7 +6908,7 @@ var Trie = class {
   }
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/router/reg-exp-router/router.js
+// node_modules/hono/dist/router/reg-exp-router/router.js
 function endsWithWildcard(keys) {
   const tail = keys[keys.length - 1];
   return tail === "[^]*" || tail === "(?:|/[^]*)";
@@ -6990,7 +6990,7 @@ var RegExpRouter = class {
   }
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/router/smart-router/router.js
+// node_modules/hono/dist/router/smart-router/router.js
 var SmartRouter = class {
   name = "SmartRouter";
   #routers = [];
@@ -7037,7 +7037,7 @@ var SmartRouter = class {
   }
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/router/trie-router/node.js
+// node_modules/hono/dist/router/trie-router/node.js
 var emptyParams = createNullObject();
 var order = 0;
 var Node3 = class Node4 {
@@ -7167,7 +7167,7 @@ var Node3 = class Node4 {
   }
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/router/trie-router/router.js
+// node_modules/hono/dist/router/trie-router/router.js
 var TrieRouter = class {
   name = "TrieRouter";
   #node = new Node3();
@@ -7179,7 +7179,7 @@ var TrieRouter = class {
   }
 };
 
-// research/live-questions-upstream/node_modules/hono/dist/hono.js
+// node_modules/hono/dist/hono.js
 var Hono3 = class extends Hono {
   /**
   * Creates an instance of the Hono class.
@@ -7192,7 +7192,7 @@ var Hono3 = class extends Hono {
   }
 };
 
-// output/data1x01-masterclass/live-questions/src/server/auth.ts
+// src/server/auth.ts
 var encoder = new TextEncoder();
 function keyMatches(given, expected) {
   if (!expected || typeof given !== "string") return false;
@@ -7207,7 +7207,7 @@ function bearerMatches(header, expected) {
   return keyMatches(m?.[1]?.trim(), expected);
 }
 
-// output/data1x01-masterclass/live-questions/src/shared/protocol.ts
+// src/shared/protocol.ts
 var PROTOCOL_VERSION = 1;
 var LIMITS = {
   /** Session names: also the Durable Object name and part of the audience URL. */
@@ -7238,7 +7238,7 @@ var DEFAULTS = {
   maxAnswers: 3
 };
 
-// output/data1x01-masterclass/live-questions/src/server/validate.ts
+// src/server/validate.ts
 var VOTER_PATTERN = /^[\x21-\x7e]{1,64}$/;
 var MAX_KEY_CHARS = 256;
 var isObj = (v) => typeof v === "object" && v !== null && !Array.isArray(v);
@@ -7258,7 +7258,16 @@ function validateQuestion(v) {
     if (!options.every((o) => isText(o, LIMITS.optionChars))) {
       return `options must be strings of at most ${LIMITS.optionChars} characters`;
     }
-    return { type: "poll", id: v.id, prompt: v.prompt, options: [...options] };
+    const q = { type: "poll", id: v.id, prompt: v.prompt, options: [...options] };
+    if (v.confidence === true) q.confidence = true;
+    if (v.revision !== void 0) {
+      const r = v.revision;
+      if (!isObj(r) || !isText(r.topic, 160) || !Array.isArray(r.outcomes) || r.outcomes.length > 10 || !Array.isArray(r.resources) || r.resources.length > 6) return "invalid revision metadata";
+      if (!r.outcomes.every((o) => isObj(o) && isText(o.id, 10) && isText(o.text, 500))) return "invalid learning outcomes";
+      if (!r.resources.every((a) => isObj(a) && isText(a.label, 160) && isText(a.url, 500) && /^https:\/\/canvas\.sydney\.edu\.au\//.test(a.url))) return "invalid revision resource";
+      q.revision = { topic: r.topic, outcomes: r.outcomes.map((o) => ({ id: o.id, text: o.text })), resources: r.resources.map((a) => ({ label: a.label, url: a.url })) };
+    }
+    return q;
   }
   if (v.type === "wordcloud") {
     const maxWords = v.maxWords ?? DEFAULTS.maxWords;
@@ -7350,6 +7359,10 @@ function validateMessage(v) {
       if (!isText(v.text, LIMITS.answerInputChars)) return bad("invalid text");
       if (typeof v.hidden !== "boolean") return bad("hidden must be a boolean");
       return good({ t: "hide", id: v.id, text: v.text, hidden: v.hidden });
+    case "confidence":
+      if (!isId(v.id)) return bad("invalid question id");
+      if (!isInt(v.choice) || v.choice < 0 || v.choice > 2) return bad("invalid confidence");
+      return good({ t: "confidence", id: v.id, choice: v.choice });
     case "vote":
       if (!isId(v.id)) return bad("invalid question id");
       if (!isInt(v.choice)) return bad("choice must be an integer");
@@ -7381,7 +7394,7 @@ function parseMessage(raw2) {
   return validateMessage(value);
 }
 
-// output/data1x01-masterclass/live-questions/src/server/app.ts
+// src/server/app.ts
 var PAGE_HEADERS = {
   "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
   "Referrer-Policy": "no-referrer",
@@ -7396,6 +7409,8 @@ async function page(deps, c, path, status = 200) {
 }
 function createApp(deps) {
   const app2 = new Hono3();
+  app2.get("/feedback/", (c) => page(deps, c, "/feedback/index.html"));
+  app2.get("/feedback", (c) => c.redirect("/feedback/", 302));
   app2.get("/healthz", (c) => c.text("ok"));
   app2.get("/", (c) => page(deps, c, "/index.html"));
   app2.get("/s/:session", async (c) => {
@@ -7439,7 +7454,7 @@ function createApp(deps) {
   return app2;
 }
 
-// output/data1x01-masterclass/live-questions/src/server/ratelimit.ts
+// src/server/ratelimit.ts
 var AUDIENCE_LIMIT = { burst: 20, refillPerSecond: 5 };
 var TokenBucket = class {
   constructor(config, now) {
@@ -7460,7 +7475,7 @@ var TokenBucket = class {
   }
 };
 
-// output/data1x01-masterclass/live-questions/src/server/hub.ts
+// src/server/hub.ts
 var PING = '{"t":"ping"}';
 var PONG = '{"t":"pong"}';
 var MAX_BYTES = { audience: 4 * 1024, deck: 32 * 1024 };
@@ -7639,7 +7654,7 @@ var Hub = class {
   }
 };
 
-// output/data1x01-masterclass/live-questions/src/shared/normalize.ts
+// src/shared/normalize.ts
 var EDGE_CHARS = `.,;:!?"'()[]{}\u2026\u201C\u201D\u2018\u2019\u201E\u201A\xAB\xBB\u2039\u203A`;
 var EDGE = new RegExp(
   `^[\\s${escapeClass(EDGE_CHARS)}]+|[\\s${escapeClass(EDGE_CHARS)}]+$`,
@@ -7664,7 +7679,7 @@ function normalizeAnswer(raw2, maxWords) {
   return { text, key: text.toLowerCase() };
 }
 
-// output/data1x01-masterclass/live-questions/src/server/room.ts
+// src/server/room.ts
 var ok = (changed, mineChanged = false, allMineChanged = false) => ({
   ok: true,
   changed,
@@ -7676,7 +7691,7 @@ var PRESENTER_ONLY = /* @__PURE__ */ new Set(["open", "close", "reveal", "reset"
 function sameQuestion(a, b) {
   if (a.type !== b.type || a.id !== b.id || a.prompt !== b.prompt) return false;
   if (a.type === "poll" && b.type === "poll") {
-    return a.options.length === b.options.length && a.options.every((o, i) => o === b.options[i]);
+    return a.options.length === b.options.length && a.options.every((o, i) => o === b.options[i]) && a.confidence === b.confidence && JSON.stringify(a.revision) === JSON.stringify(b.revision);
   }
   if (a.type === "wordcloud" && b.type === "wordcloud") {
     return a.maxWords === b.maxWords && a.maxAnswers === b.maxAnswers;
@@ -7695,6 +7710,7 @@ function newEntry(question) {
     status: "open",
     revealed: null,
     votes: /* @__PURE__ */ new Map(),
+    confidence: /* @__PURE__ */ new Map(),
     answers: /* @__PURE__ */ new Map(),
     ratings: /* @__PURE__ */ new Map(),
     display: /* @__PURE__ */ new Map(),
@@ -7704,6 +7720,7 @@ function newEntry(question) {
 function clearResults(e) {
   e.revealed = null;
   e.votes.clear();
+  e.confidence.clear();
   e.answers.clear();
   e.ratings.clear();
   e.display.clear();
@@ -7745,7 +7762,12 @@ var Room = class _Room {
         for (const [voter, choice] of pairs(q.votes)) {
           if (typeof voter === "string" && typeof choice === "number" && Number.isInteger(choice) && choice >= 0 && choice < n) {
             e.votes.set(voter, choice);
+            e.confidence.delete(voter);
           }
+        }
+        if (question.confidence) for (const [voter, choice] of pairs(q.confidence)) {
+          if (typeof voter === "string" && e.votes.has(voter) && Number.isInteger(choice) && Number(choice) >= 0 && Number(choice) <= 2)
+            e.confidence.set(voter, choice);
         }
       } else if (question.type === "likert") {
         const n = question.labels.length;
@@ -7840,6 +7862,8 @@ var Room = class _Room {
         return this.reset(msg.id);
       case "hide":
         return this.hide(msg.id, msg.text, msg.hidden);
+      case "confidence":
+        return this.confidence(sender.voter, msg.id, msg.choice);
       case "vote":
         return this.vote(sender.voter, msg.id, msg.choice);
       case "answer":
@@ -7890,7 +7914,7 @@ var Room = class _Room {
     const same = e.status === "closed" && e.revealed !== null && e.revealed.length === revealed.length && e.revealed.every((v, i) => v === revealed[i]);
     e.revealed = revealed;
     e.status = "closed";
-    return ok(!same);
+    return ok(!same, false, !same);
   }
   reset(id) {
     if (id === void 0) {
@@ -7933,6 +7957,17 @@ var Room = class _Room {
     if (choice < 0 || choice >= e.question.options.length) return fail("bad-message", "choice out of range");
     if (e.votes.get(voter) === choice) return ok(false);
     e.votes.set(voter, choice);
+    e.confidence.delete(voter);
+    return ok(true, true);
+  }
+  confidence(voter, id, choice) {
+    const e = this.votable(id);
+    if (!("question" in e)) return e;
+    if (e.question.type !== "poll" || !e.question.confidence) return fail("bad-message", "confidence is not enabled");
+    if (!e.votes.has(voter)) return fail("bad-message", "choose an answer first");
+    if (![0, 1, 2].includes(choice)) return fail("bad-message", "invalid confidence");
+    if (e.confidence.get(voter) === choice) return ok(false);
+    e.confidence.set(voter, choice);
     return ok(true, true);
   }
   answer(voter, id, text) {
@@ -7969,7 +8004,17 @@ var Room = class _Room {
     if (q.type === "poll") {
       const counts = q.options.map(() => 0);
       for (const choice of e.votes.values()) counts[choice] = (counts[choice] ?? 0) + 1;
-      return { type: "poll", counts, voters: e.votes.size };
+      const r = { type: "poll", counts, voters: e.votes.size };
+      if (q.confidence) {
+        const c = [0, 0, 0];
+        let wrong = 0;
+        for (const [voter, confidence] of e.confidence) {
+          c[confidence]++;
+          if (confidence === 2 && e.revealed !== null && !e.revealed.includes(e.votes.get(voter))) wrong++;
+        }
+        r.confidence = { counts: c, answered: e.confidence.size, confidentlyIncorrect: e.revealed === null ? null : wrong };
+      }
+      return r;
     }
     if (q.type === "likert") {
       const counts = q.statements.map(() => q.labels.map(() => 0));
@@ -8034,6 +8079,25 @@ var Room = class _Room {
       const ratings = e.ratings.get(voter);
       if (ratings) mine.ratings[id] = [...ratings];
     }
+    const confidence = {};
+    const review = [];
+    for (const [id, e] of this.questions) {
+      const c = e.confidence.get(voter);
+      if (c !== void 0) confidence[id] = c;
+      if (e.question.type === "poll" && e.question.revision && e.revealed !== null) {
+        const choice = e.votes.get(voter) ?? null;
+        review.push({
+          id,
+          prompt: e.question.prompt,
+          revision: e.question.revision,
+          choice,
+          correct: choice !== null && e.revealed.includes(choice),
+          confidence: c ?? null
+        });
+      }
+    }
+    if (Object.keys(confidence).length) mine.confidence = confidence;
+    if (review.length) mine.review = review;
     return mine;
   }
   /** Full state for `GET /api/s/:session/export`. */
@@ -8048,6 +8112,7 @@ function dumpEntry(e) {
     status: e.status,
     revealed: e.revealed,
     votes: [...e.votes],
+    ...e.confidence.size ? { confidence: [...e.confidence] } : {},
     answers: [...e.answers],
     ratings: [...e.ratings],
     display: [...e.display],
@@ -8062,7 +8127,7 @@ function pairs(value) {
   return value.filter((p) => Array.isArray(p) && p.length === 2);
 }
 
-// output/data1x01-masterclass/live-questions/src/server/node/main.ts
+// src/server/node/main.ts
 var PORT = Number(process.env.PORT ?? 8787);
 var PRESENTER_KEY = process.env.PRESENTER_KEY || void 0;
 var DATA_DIR = resolve(process.env.DATA_DIR ?? "/data");

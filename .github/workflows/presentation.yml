@@ -37,6 +37,12 @@ jobs:
           Rscript -e 'install.packages("ggplot2", repos="https://cloud.r-project.org")'
           sudo apt-get update
           sudo apt-get install -y fonts-dejavu-core
+      - name: Build and check live voting
+        working-directory: live-questions
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+          node scripts/check-learning-features.mjs
       - name: Render and check
         run: |
           python scripts/validate_slide_questions.py

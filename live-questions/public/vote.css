@@ -1055,3 +1055,11 @@ input {
     padding-top: 40px;
   }
 }
+
+/* Confidence and private revision receipt */
+.confidence-panel{margin:24px 0;padding:16px;border:1px solid #bfcdd0;border-radius:12px}
+.confidence-options{display:flex;gap:8px;flex-wrap:wrap}.confidence-choice,.receipt-toggle{font:inherit;padding:12px 16px;border:1px solid #668d8d;border-radius:8px;background:#fff;color:#163f40;cursor:pointer}
+.confidence-choice[aria-pressed=true]{background:#163f40;color:#fff}.confidence-choice:disabled{opacity:.45;cursor:default}
+.confidence-saved{font-size:.9rem}.receipt-toggle{display:block;margin:14px auto}.receipt h2{font-size:1.25rem;margin-top:28px}.receipt h3{font-size:1.1rem;margin:0 0 8px}.receipt-card{border-left:4px solid #427b7b;padding:14px 18px;margin:16px 0;background:#f2f7f6;color:#172e30}.receipt-card p{margin:8px 0}.receipt-outcome{font-size:.9rem}.receipt-card a{color:#005f68;text-decoration:underline}.receipt-summary{font-weight:700}.receipt .send{margin:20px 0}
+
+.feedback-page{max-width:650px;margin:60px auto;padding:24px}

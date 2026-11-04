@@ -55,6 +55,15 @@ local config = {
 local seen_ids = {}
 local last_heading = ""
 local question_count = 0
+local revision_catalog = {}
+do
+  local file = io.open("data/revision-catalog.json", "r")
+  if file then
+    local ok, value = pcall(pandoc.json.decode, file:read("*a"))
+    file:close()
+    if ok and type(value) == "table" then revision_catalog = value end
+  end
+end
 
 local function warn(msg)
   quarto.log.warning("[live-questions] " .. msg)
@@ -372,6 +381,8 @@ local function build_question(div, kind)
     end
     q = { type = "poll", id = id, prompt = prompt, options = options, results = results }
     if #correct > 0 then q.correct = correct end
+    local revision = revision_catalog[id:gsub("^vote%-", "")]
+    if revision then q.revision = revision; q.confidence = true end
   elseif kind == "likert" then
     q = {
       type = "likert",

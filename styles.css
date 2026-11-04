@@ -224,3 +224,16 @@
 #voting-dialog .voting-secondary button{font-size:13px;background:transparent;color:#57686c;border-color:#bdc9c7}
 #voting-dialog button:disabled,.reveal .voting-controls button:disabled{opacity:.6;cursor:wait}
 @media print{.voting-controls,#voting-dialog{display:none!important}}
+
+/* Session check-in, confidence and close */
+.reveal .receipt-trigger{display:none!important}
+.reveal .feedback-qr{display:flex;justify-content:center;align-items:center;min-height:320px}
+.reveal .feedback-qr svg{width:300px;height:300px;background:white;padding:16px}
+.reveal .check-in .lq-question.lq-active{height:365px!important;max-height:365px!important;margin-top:8px!important}
+.reveal .check-in .lq-text{display:none}
+.reveal .check-in .small{font-size:20px}
+.reveal .receipt-slide li{margin:22px 0}
+.reveal .mcq-vote-header .lq-confidence-summary{position:absolute;left:0;right:0;top:70px;font-size:14px;line-height:1.3;white-space:normal;margin:2px 0;padding:2px 6px}
+.reveal .mcq:has(.mcq-vote-header.lq-active) .mcq-layout{padding-top:34px}
+.reveal .mcq:has(.mcq-vote-header.lq-active) .answer-row{padding:7px 12px 6px;margin-bottom:1px}
+.reveal .mcq:has(.mcq-vote-header.lq-active) .answer-reason{font-size:19px;line-height:1.22}

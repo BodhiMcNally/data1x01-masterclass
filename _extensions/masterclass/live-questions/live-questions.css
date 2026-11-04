@@ -754,3 +754,5 @@ html[data-lq-mode="presenter"] .lq-question:focus-within .lq-controls {
   .lq-toast { transition: none; }
   .lq-pill[data-state="live"]::before { animation: none; }
 }
+
+.lq-confidence-summary{font-size:16px;line-height:1.35;padding:8px 12px;background:rgba(93,139,135,.15);border-radius:8px;margin-top:6px}.lq-results-hidden .lq-confidence-summary{display:none!important}

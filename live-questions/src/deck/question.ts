@@ -134,6 +134,14 @@ export class QuestionView {
     this.toggleBtn.textContent = pill === "live" ? "Close voting" : "Reopen voting";
     this.toggleBtn.disabled = pill === "offline";
     this.applyResultsVisibility();
+    const c = results?.type === "poll" ? results.confidence : undefined;
+    let summary = this.el.querySelector<HTMLElement>(".lq-confidence-summary");
+    if (c && !summary) { summary = h("div", { class: "lq-confidence-summary" }); this.main.append(summary); }
+    if (summary) {
+      summary.hidden = !c || !this.resultsVisible();
+      summary.textContent = c ? `Confidence (${c.answered}/${voters}): Guessing ${c.counts[0]} · Unsure ${c.counts[1]} · Confident ${c.counts[2]}` +
+        (c.confidentlyIncorrect === null ? "" : ` · Confident + incorrect: ${c.confidentlyIncorrect}`) : "";
+    }
   }
 
   /** `T`: flip results visibility on this slide. */

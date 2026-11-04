@@ -73,7 +73,7 @@ export function readQuestion(el: HTMLElement): LpQuestion | null {
 export function definition(q: LpQuestion): Question {
   switch (q.type) {
     case "poll":
-      return { type: q.type, id: q.id, prompt: q.prompt, options: q.options };
+      return { type: q.type, id: q.id, prompt: q.prompt, options: q.options, ...(q.confidence ? {confidence: true} : {}), ...(q.revision ? {revision: q.revision} : {}) };
     case "wordcloud":
       return { type: q.type, id: q.id, prompt: q.prompt, maxWords: q.maxWords, maxAnswers: q.maxAnswers };
     case "likert":

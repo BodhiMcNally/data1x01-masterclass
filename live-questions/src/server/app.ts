@@ -39,6 +39,9 @@ async function page<E extends Env>(deps: AppDeps<E>, c: Context<E>, path: string
 export function createApp<E extends Env = Env>(deps: AppDeps<E>): Hono<E> {
   const app = new Hono<E>();
 
+  app.get("/feedback/", (c) => page(deps, c, "/feedback/index.html"));
+  app.get("/feedback", (c) => c.redirect("/feedback/", 302));
+
   app.get("/healthz", (c) => c.text("ok"));
 
   app.get("/", (c) => page(deps, c, "/index.html"));

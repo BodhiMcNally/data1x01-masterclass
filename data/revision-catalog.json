@@ -1,0 +1,297 @@
+{
+  "q1": {
+    "topic": "Q1: Study design",
+    "outcomes": [
+      {
+        "id": "LO2",
+        "text": "identify the study design behind a dataset and how the study design affects context specific outcomes"
+      },
+      {
+        "id": "LO9",
+        "text": "critique the use of statistics in media and research papers in a wide variety of data contexts, with attention to confounding and bias"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 1: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-1-introduction?module_item_id=3135878"
+      },
+      {
+        "label": "Topic 8: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-8-introduction?module_item_id=3135931"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q2": {
+    "topic": "Q2: Linking student records",
+    "outcomes": [
+      {
+        "id": "LO1",
+        "text": "articulate the importance of statistics in a data-rich world, including current challenges such as ethics, privacy and big data"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 1: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-1-introduction?module_item_id=3135878"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q3": {
+    "topic": "Q3: Transforming variables",
+    "outcomes": [
+      {
+        "id": "LO3",
+        "text": "produce, interpret and compare graphical and numerical summaries, using base R and ggplot"
+      },
+      {
+        "id": "LO5",
+        "text": "model and explain the relationship between 2 variables using linear regression"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 3: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-3-introduction?module_item_id=3135892"
+      },
+      {
+        "label": "Topic 5: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-5-introduction?module_item_id=3135907"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q4": {
+    "topic": "Q4: Normal probabilities in R",
+    "outcomes": [
+      {
+        "id": "LO4",
+        "text": "apply the normal approximation to data, with consideration of measurement error"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 4: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-4-introduction?module_item_id=3135900"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q5": {
+    "topic": "Q5: Measurement error",
+    "outcomes": [
+      {
+        "id": "LO4",
+        "text": "apply the normal approximation to data, with consideration of measurement error"
+      },
+      {
+        "id": "LO6",
+        "text": "use the box model to describe chance and chance variability, including sample surveys and the central limit theorem"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 4: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-4-introduction?module_item_id=3135900"
+      },
+      {
+        "label": "Topic 7: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-7-introduction?module_item_id=3135922"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q6": {
+    "topic": "Q6: Conditional probability",
+    "outcomes": [
+      {
+        "id": "LO6",
+        "text": "use the box model to describe chance and chance variability, including sample surveys and the central limit theorem"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 6: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-6-introduction?module_item_id=3135914"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q7": {
+    "topic": "Q7: Binomial probability in R",
+    "outcomes": [
+      {
+        "id": "LO6",
+        "text": "use the box model to describe chance and chance variability, including sample surveys and the central limit theorem"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 6: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-6-introduction?module_item_id=3135914"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q8": {
+    "topic": "Q8: Sampling distributions",
+    "outcomes": [
+      {
+        "id": "LO6",
+        "text": "use the box model to describe chance and chance variability, including sample surveys and the central limit theorem"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 7: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-7-introduction?module_item_id=3135922"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q9": {
+    "topic": "Q9: Bootstrapping the mean",
+    "outcomes": [
+      {
+        "id": "LO6",
+        "text": "use the box model to describe chance and chance variability, including sample surveys and the central limit theorem"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 8: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-8-introduction?module_item_id=3135931"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q10": {
+    "topic": "Q10: Using a confidence interval",
+    "outcomes": [
+      {
+        "id": "LO7",
+        "text": "given real multivariate data and a problem, formulate an appropriate hypothesis and perform a range of hypothesis tests"
+      },
+      {
+        "id": "LO8",
+        "text": "interpret the p-value, conscious of the various pitfalls associated with testing"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 8: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-8-introduction?module_item_id=3135931"
+      },
+      {
+        "label": "Topic 10: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-10-introduction?module_item_id=3135946"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q11": {
+    "topic": "Q11: Linear regression",
+    "outcomes": [
+      {
+        "id": "LO5",
+        "text": "model and explain the relationship between 2 variables using linear regression"
+      },
+      {
+        "id": "LO7",
+        "text": "given real multivariate data and a problem, formulate an appropriate hypothesis and perform a range of hypothesis tests"
+      },
+      {
+        "id": "LO9",
+        "text": "critique the use of statistics in media and research papers in a wide variety of data contexts, with attention to confounding and bias"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 5: Introduction",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-5-introduction?module_item_id=3135907"
+      },
+      {
+        "label": "Topic 11: Introduction ",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-11-introduction?module_item_id=3135954"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q12": {
+    "topic": "Q12: Choosing the chi-squared test",
+    "outcomes": [
+      {
+        "id": "LO7",
+        "text": "given real multivariate data and a problem, formulate an appropriate hypothesis and perform a range of hypothesis tests"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 11: Introduction ",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-11-introduction?module_item_id=3135954"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  },
+  "q13": {
+    "topic": "Q13: Goodness of fit",
+    "outcomes": [
+      {
+        "id": "LO7",
+        "text": "given real multivariate data and a problem, formulate an appropriate hypothesis and perform a range of hypothesis tests"
+      },
+      {
+        "id": "LO8",
+        "text": "interpret the p-value, conscious of the various pitfalls associated with testing"
+      }
+    ],
+    "resources": [
+      {
+        "label": "Topic 11: Introduction ",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/topic-11-introduction?module_item_id=3135954"
+      },
+      {
+        "label": "Exam preparation and sample papers",
+        "url": "https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam"
+      }
+    ]
+  }
+}

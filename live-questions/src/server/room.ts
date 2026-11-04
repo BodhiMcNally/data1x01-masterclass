@@ -8,6 +8,8 @@
  */
 import {
   LIMITS,
+  type Confidence,
+  type PollResults,
   type AudienceState,
   type ClientMessage,
   type CloudWord,
@@ -57,6 +59,7 @@ interface Entry {
   revealed: number[] | null;
   /** voter → option index (polls). */
   votes: Map<string, number>;
+  confidence: Map<string, Confidence>;
   /** voter → answers in submission order (word clouds). */
   answers: Map<string, Answer[]>;
   /** voter → scale point per statement, null where unrated (likert). */
@@ -77,6 +80,7 @@ export interface RoomData {
     status: Status;
     revealed: number[] | null;
     votes: Array<[string, number]>;
+    confidence?: Array<[string, Confidence]>;
     answers: Array<[string, Answer[]]>;
     /** Absent in rooms stored before likert questions existed. */
     ratings?: Array<[string, Array<number | null>]>;
@@ -115,7 +119,7 @@ const PRESENTER_ONLY = new Set(["open", "close", "reveal", "reset", "hide"]);
 function sameQuestion(a: Question, b: Question): boolean {
   if (a.type !== b.type || a.id !== b.id || a.prompt !== b.prompt) return false;
   if (a.type === "poll" && b.type === "poll") {
-    return a.options.length === b.options.length && a.options.every((o, i) => o === b.options[i]);
+    return a.options.length === b.options.length && a.options.every((o, i) => o === b.options[i]) && a.confidence === b.confidence && JSON.stringify(a.revision) === JSON.stringify(b.revision);
   }
   if (a.type === "wordcloud" && b.type === "wordcloud") {
     return a.maxWords === b.maxWords && a.maxAnswers === b.maxAnswers;
@@ -141,6 +145,7 @@ function newEntry(question: Question): Entry {
     status: "open",
     revealed: null,
     votes: new Map(),
+    confidence: new Map(),
     answers: new Map(),
     ratings: new Map(),
     display: new Map(),
@@ -151,6 +156,7 @@ function newEntry(question: Question): Entry {
 function clearResults(e: Entry): void {
   e.revealed = null;
   e.votes.clear();
+  e.confidence.clear();
   e.answers.clear();
   e.ratings.clear();
   e.display.clear();
@@ -196,7 +202,12 @@ export class Room {
         for (const [voter, choice] of pairs(q.votes)) {
           if (typeof voter === "string" && typeof choice === "number" && Number.isInteger(choice) && choice >= 0 && choice < n) {
             e.votes.set(voter, choice);
+    e.confidence.delete(voter);
           }
+        }
+        if (question.confidence) for (const [voter, choice] of pairs(q.confidence)) {
+          if (typeof voter === "string" && e.votes.has(voter) && Number.isInteger(choice) && Number(choice) >= 0 && Number(choice) <= 2)
+            e.confidence.set(voter, choice as Confidence);
         }
       } else if (question.type === "likert") {
         const n = question.labels.length;
@@ -300,6 +311,8 @@ export class Room {
         return this.reset(msg.id);
       case "hide":
         return this.hide(msg.id, msg.text, msg.hidden);
+      case "confidence":
+        return this.confidence(sender.voter, msg.id, msg.choice);
       case "vote":
         return this.vote(sender.voter, msg.id, msg.choice);
       case "answer":
@@ -357,7 +370,7 @@ export class Room {
       e.revealed.every((v, i) => v === revealed[i]);
     e.revealed = revealed;
     e.status = "closed";
-    return ok(!same);
+    return ok(!same, false, !same);
   }
 
   private reset(id: QuestionId | undefined): Outcome {
@@ -404,6 +417,18 @@ export class Room {
     if (choice < 0 || choice >= e.question.options.length) return fail("bad-message", "choice out of range");
     if (e.votes.get(voter) === choice) return ok(false);
     e.votes.set(voter, choice);
+    e.confidence.delete(voter);
+    return ok(true, true);
+  }
+
+  private confidence(voter: string, id: QuestionId, choice: Confidence): Outcome {
+    const e = this.votable(id);
+    if (!("question" in e)) return e;
+    if (e.question.type !== "poll" || !e.question.confidence) return fail("bad-message", "confidence is not enabled");
+    if (!e.votes.has(voter)) return fail("bad-message", "choose an answer first");
+    if (![0, 1, 2].includes(choice)) return fail("bad-message", "invalid confidence");
+    if (e.confidence.get(voter) === choice) return ok(false);
+    e.confidence.set(voter, choice);
     return ok(true, true);
   }
 
@@ -443,7 +468,16 @@ export class Room {
     if (q.type === "poll") {
       const counts: number[] = q.options.map(() => 0);
       for (const choice of e.votes.values()) counts[choice] = (counts[choice] ?? 0) + 1;
-      return { type: "poll", counts, voters: e.votes.size };
+      const r: PollResults = { type: "poll", counts, voters: e.votes.size };
+      if (q.confidence) {
+        const c = [0, 0, 0]; let wrong = 0;
+        for (const [voter, confidence] of e.confidence) {
+          c[confidence]++;
+          if (confidence === 2 && e.revealed !== null && !e.revealed.includes(e.votes.get(voter)!)) wrong++;
+        }
+        r.confidence = { counts: c, answered: e.confidence.size, confidentlyIncorrect: e.revealed === null ? null : wrong };
+      }
+      return r;
     }
     if (q.type === "likert") {
       const counts = q.statements.map(() => q.labels.map(() => 0));
@@ -516,6 +550,20 @@ export class Room {
       const ratings = e.ratings.get(voter);
       if (ratings) mine.ratings[id] = [...ratings];
     }
+    const confidence: Record<string, Confidence> = {};
+    const review: NonNullable<Mine["review"]> = [];
+    for (const [id, e] of this.questions) {
+      const c = e.confidence.get(voter);
+      if (c !== undefined) confidence[id] = c;
+      // No answers or correctness are disclosed until the presenter reveals.
+      if (e.question.type === "poll" && e.question.revision && e.revealed !== null) {
+        const choice = e.votes.get(voter) ?? null;
+        review.push({ id, prompt: e.question.prompt, revision: e.question.revision,
+          choice, correct: choice !== null && e.revealed.includes(choice), confidence: c ?? null });
+      }
+    }
+    if (Object.keys(confidence).length) mine.confidence = confidence;
+    if (review.length) mine.review = review;
     return mine;
   }
 
@@ -532,6 +580,7 @@ function dumpEntry(e: Entry): QuestionData {
     status: e.status,
     revealed: e.revealed,
     votes: [...e.votes],
+    ...(e.confidence.size ? { confidence: [...e.confidence] } : {}),
     answers: [...e.answers],
     ratings: [...e.ratings],
     display: [...e.display],

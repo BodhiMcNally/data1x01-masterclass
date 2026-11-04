@@ -1,0 +1,12 @@
+{
+  "slides": 44,
+  "wordcloud": true,
+  "confidence": true,
+  "reveal": true,
+  "privateReceipt": true,
+  "reconnect": true,
+  "receiptDownload": true,
+  "qrDestination": true,
+  "feedbackRedirect": true,
+  "errors": []
+}

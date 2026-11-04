@@ -1,0 +1,66 @@
+[[AdvancedFormat]]
+[[Block:DATA1x01 revision session feedback]]
+
+[[Question:DB]]
+DATA1x01 revision session feedback
+Thank you for attending Bodhi McNally's revision session. This voluntary survey takes about 2 minutes. Your feedback will help improve future sessions. You may skip any question. Please do not include your name, student number or other identifying details in comments. This is feedback on a student society revision event, not the University's official unit evaluation.
+
+[[Question:MC:SingleAnswer:Vertical]]
+Which unit are you studying?
+[[Choices]]
+DATA1001
+DATA1901
+Another unit
+Prefer not to say
+
+[[Question:MC:SingleAnswer:Vertical]]
+Overall, how useful was this session for your exam preparation?
+[[Choices]]
+Not at all useful
+Slightly useful
+Moderately useful
+Very useful
+Extremely useful
+
+[[Question:MC:SingleAnswer:Vertical]]
+Thinking back to before the session, how confident did you feel about tackling DATA1x01 exam questions?
+[[Choices]]
+Not at all confident
+Slightly confident
+Moderately confident
+Very confident
+Extremely confident
+
+[[Question:MC:SingleAnswer:Vertical]]
+How confident do you feel about tackling DATA1x01 exam questions now?
+[[Choices]]
+Not at all confident
+Slightly confident
+Moderately confident
+Very confident
+Extremely confident
+
+[[Question:MC:MultipleAnswer:Vertical]]
+Which parts helped you? Select all that apply.
+[[Choices]]
+Multiple-choice questions and explanations
+Short-answer examples and marking guidance
+Concept summaries and test selection
+Live voting and confidence ratings
+Interactive demonstrations
+Personal revision receipt and Canvas links
+
+[[Question:MC:SingleAnswer:Vertical]]
+How did you find the pace of the session?
+[[Choices]]
+Much too slow
+A little too slow
+About right
+A little too fast
+Much too fast
+
+[[Question:TE:Essay]]
+What was the most helpful part of the session?
+
+[[Question:TE:Essay]]
+What should we change, or explain more clearly, next time?

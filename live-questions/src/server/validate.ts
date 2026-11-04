@@ -12,6 +12,8 @@ import {
   type ClientMessage,
   type Question,
   type Role,
+  type PollQuestion,
+  type RevisionInfo,
 } from "../shared/protocol";
 
 /**
@@ -47,7 +49,18 @@ export function validateQuestion(v: unknown): Question | string {
     if (!options.every((o) => isText(o, LIMITS.optionChars))) {
       return `options must be strings of at most ${LIMITS.optionChars} characters`;
     }
-    return { type: "poll", id: v.id, prompt: v.prompt, options: [...(options as string[])] };
+    const q: PollQuestion = { type: "poll", id: v.id, prompt: v.prompt, options: [...(options as string[])] };
+    if (v.confidence === true) q.confidence = true;
+    if (v.revision !== undefined) {
+      const r = v.revision;
+      if (!isObj(r) || !isText(r.topic, 160) || !Array.isArray(r.outcomes) || r.outcomes.length > 10 ||
+          !Array.isArray(r.resources) || r.resources.length > 6) return "invalid revision metadata";
+      if (!r.outcomes.every(o => isObj(o) && isText(o.id, 10) && isText(o.text, 500))) return "invalid learning outcomes";
+      if (!r.resources.every(a => isObj(a) && isText(a.label, 160) && isText(a.url, 500) &&
+          /^https:\/\/canvas\.sydney\.edu\.au\//.test(a.url))) return "invalid revision resource";
+      q.revision = { topic: r.topic, outcomes: r.outcomes.map((o: any) => ({id:o.id,text:o.text})), resources: r.resources.map((a: any) => ({label:a.label,url:a.url})) } as RevisionInfo;
+    }
+    return q;
   }
   if (v.type === "wordcloud") {
     const maxWords = v.maxWords ?? DEFAULTS.maxWords;
@@ -145,6 +158,10 @@ export function validateMessage(v: unknown): Parsed {
       if (!isText(v.text, LIMITS.answerInputChars)) return bad("invalid text");
       if (typeof v.hidden !== "boolean") return bad("hidden must be a boolean");
       return good({ t: "hide", id: v.id, text: v.text, hidden: v.hidden });
+    case "confidence":
+      if (!isId(v.id)) return bad("invalid question id");
+      if (!isInt(v.choice) || v.choice < 0 || v.choice > 2) return bad("invalid confidence");
+      return good({ t: "confidence", id: v.id, choice: v.choice as 0 | 1 | 2 });
     case "vote":
       if (!isId(v.id)) return bad("invalid question id");
       if (!isInt(v.choice)) return bad("choice must be an integer");

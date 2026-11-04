@@ -32,6 +32,8 @@
         q.correct = rows.flatMap((row,i) => row.dataset.correct === 'true' ? [i] : []);
         if (q.options.some(v => !v || v.length > 200) || q.correct.length !== 1) throw Error('Check the MCQ answer rows.');
       }
+      q.confidence = true;
+      q.revision = window.DATA1X01_REVISION?.[slide.id] || q.revision;
       header.dataset.lq = JSON.stringify(q);
     } catch (err) { console.error('Voting question could not be synchronised:', slide.id, err.message); }
    }

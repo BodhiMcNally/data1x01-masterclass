@@ -47,6 +47,17 @@ export const DEFAULTS = {
 } as const;
 
 export type QuestionId = string;
+export type Confidence = 0 | 1 | 2;
+export interface RevisionInfo {
+  topic: string;
+  outcomes: Array<{ id: string; text: string }>;
+  resources: Array<{ label: string; url: string }>;
+}
+export interface ReviewItem {
+  id: string; prompt: string; revision: RevisionInfo;
+  choice: number | null; correct: boolean; confidence: Confidence | null;
+}
+
 
 /** Multiple choice. Results render as a bar chart. */
 export interface PollQuestion {
@@ -56,6 +67,8 @@ export interface PollQuestion {
   prompt: string;
   /** Plain-text option labels, in slide order. */
   options: string[];
+  confidence?: boolean;
+  revision?: RevisionInfo;
 }
 
 /** Short free-text answers. Results render as a word cloud. */
@@ -109,6 +122,7 @@ export type Question = PollQuestion | WordcloudQuestion | LikertQuestion;
 export type Status = "open" | "closed";
 
 export interface PollResults {
+  confidence?: { counts: number[]; answered: number; confidentlyIncorrect: number | null };
   type: "poll";
   /** One count per option, same order as `options`. */
   counts: number[];
@@ -180,6 +194,8 @@ export interface AudienceState {
 
 /** One voter's own submissions, so a reloaded phone shows what it already sent. */
 export interface Mine {
+  confidence?: Record<QuestionId, Confidence>;
+  review?: ReviewItem[];
   /** Poll question id → chosen option index. */
   votes: Record<QuestionId, number>;
   /** Word-cloud question id → normalized answers, in submission order. */
@@ -212,6 +228,7 @@ export type ClientMessage =
   // Audience only. Rejected unless `id` is the live question and it is open.
   /** Poll: last vote wins. */
   | { t: "vote"; id: QuestionId; choice: number }
+  | { t: "confidence"; id: QuestionId; choice: Confidence }
   /** Word cloud. */
   | { t: "answer"; id: QuestionId; text: string }
   /** Likert: rate statement `statement` at scale point `choice`. Last rating per statement wins. */

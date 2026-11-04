@@ -90,13 +90,22 @@ Plus 10 minutes reading
 
 Closed book. No calculators. Exam Guide supplied.
 
-We will work through 13 MCQs and three short-answer tasks. Have a go before looking at the answers.
+We will work through 13 MCQs and three short-answer tasks. Have a go before looking at the answers. After each A–D vote, tell us whether you are **Guessing**, **Unsure** or **Confident** on your phone.
 
 ::: {.independence}
 Prepared by Bodhi McNally for this student society event. These supplementary materials are not affiliated with or endorsed by the official DATA1x01 teaching team or the University of Sydney.
 :::
 
 <footer class="slide-source"><a href="https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam">Current exam preparation and sample paper</a> · Semester 2, 2026</footer>
+
+## How are you feeling about the DATA1x01 exam? {#exam-check-in .check-in}
+
+One word or a short phrase. There is no right answer.
+
+[Your words appear on the screen. Please keep them respectful and do not include names.]{.small .muted}
+
+::: {.wordcloud #exam-feelings prompt="How are you feeling about the DATA1x01 exam?" max-words="3" max-answers="1" results="live"}
+:::
 
 ## Sleep, caffeine and quiz scores {#s3 }
 
@@ -1538,6 +1547,36 @@ Write the rule that fixes the mistake. Reattempt a similar question later withou
 After checking an answer, explain why the other options fail. Include questions you guessed correctly in your error log.
 
 <footer class="slide-source"><a href="https://canvas.sydney.edu.au/courses/74355/pages/getting-ready-for-the-exam">Current sample and Exam Guide</a> · <a href="https://canvas.sydney.edu.au/courses/74355/pages/revision-workshop">Week 13 workshop</a> · <a href="https://doi.org/10.3758/MC.36.3.604">Butler &amp; Roediger (2008)</a></footer>
+
+## Your personal revision receipt {#revision-receipt-slide .receipt-slide}
+
+Your phone now shows your own revision priorities.
+
+::: {.wordcloud .receipt-trigger #revision-receipt prompt="Your personal revision receipt" max-words="1" max-answers="1" results="hidden"}
+:::
+
+- Revisit incorrect answers and answers you were unsure about.
+- Follow the linked **Canvas topics** and **learning outcomes**.
+- **Download your receipt** before you leave.
+
+[Keep using the same browser. The receipt includes revealed MCQs, not the short-answer tasks, and is not a prediction of your exam mark.]{.small .muted}
+
+## Help improve the next revision session {#session-feedback .feedback-slide}
+
+::: {.two-col}
+::: {}
+**What helped? What could be better?**
+
+Scan the QR for a short, voluntary feedback survey.
+
+Please do not include your name or student number in comments.
+
+<a id="feedback-link" target="_blank" rel="noopener noreferrer">Open the hosted presentation to access feedback</a>
+:::
+::: {}
+<div id="feedback-qr" class="feedback-qr" aria-label="Session feedback QR code"></div>
+:::
+:::
 
 ## Good luck with DATA1x01! {#s31 .closing}
 

@@ -1,5 +1,5 @@
 (() => {
-  // output/data1x01-masterclass/live-questions/src/shared/protocol.ts
+  // src/shared/protocol.ts
   var PROTOCOL_VERSION = 1;
   var LIMITS = {
     /** Session names: also the Durable Object name and part of the audience URL. */
@@ -27,7 +27,7 @@
   };
   var socketPath = (session) => `/api/s/${encodeURIComponent(session)}/ws`;
 
-  // output/data1x01-masterclass/live-questions/src/shared/normalize.ts
+  // src/shared/normalize.ts
   var EDGE_CHARS = `.,;:!?"'()[]{}\u2026\u201C\u201D\u2018\u2019\u201E\u201A\xAB\xBB\u2039\u203A`;
   var EDGE = new RegExp(
     `^[\\s${escapeClass(EDGE_CHARS)}]+|[\\s${escapeClass(EDGE_CHARS)}]+$`,
@@ -52,7 +52,7 @@
     return { text, key: text.toLowerCase() };
   }
 
-  // output/data1x01-masterclass/live-questions/src/audience/vote.ts
+  // src/audience/vote.ts
   function h(tag, attrs = {}, ...children) {
     const el = document.createElement(tag);
     for (const [k, v] of Object.entries(attrs)) {
@@ -99,9 +99,9 @@
     const s = storage();
     const existing = s?.getItem("lq:voter");
     if (existing && /^[\x21-\x7e]{1,64}$/.test(existing)) return existing;
-    const id = randomId();
-    s?.setItem("lq:voter", id);
-    return id;
+    const id2 = randomId();
+    s?.setItem("lq:voter", id2);
+    return id2;
   }
   function initJoin(form) {
     const input = form.querySelector("#join-session");
@@ -134,6 +134,14 @@
         if (document.visibilityState === "visible" && this.conn === "offline") this.connectNow();
       });
       window.addEventListener("online", () => this.conn === "offline" && this.connectNow());
+      const receipt = h("button", { class: "receipt-toggle", type: "button" }, "My revision receipt");
+      receipt.addEventListener("click", () => {
+        this.showReceipt = !this.showReceipt;
+        this.viewKey = "";
+        this.render();
+        receipt.textContent = this.showReceipt ? "Back to live voting" : "My revision receipt";
+      });
+      this.main.before(receipt);
       this.connect();
     }
     ws = null;
@@ -149,6 +157,7 @@
     pendingRatings = /* @__PURE__ */ new Map();
     /** Identity of the view currently in the DOM; rebuilt only when it changes. */
     viewKey = "";
+    showReceipt = false;
     toastTimer;
     voter = voterId();
     main = document.getElementById("main");
@@ -187,6 +196,14 @@
     connectNow() {
       if (this.ws) return;
       this.retry = 0;
+      const receipt = h("button", { class: "receipt-toggle", type: "button" }, "My revision receipt");
+      receipt.addEventListener("click", () => {
+        this.showReceipt = !this.showReceipt;
+        this.viewKey = "";
+        this.render();
+        receipt.textContent = this.showReceipt ? "Back to live voting" : "My revision receipt";
+      });
+      this.main.before(receipt);
       this.connect();
     }
     send(msg) {
@@ -213,8 +230,8 @@
             this.pendingVote = null;
           }
           for (const [key, choice] of this.pendingRatings) {
-            const [id = "", statement] = key.split(" ");
-            if (this.mine.ratings[id]?.[Number(statement)] === choice) this.pendingRatings.delete(key);
+            const [id2 = "", statement] = key.split(" ");
+            if (this.mine.ratings[id2]?.[Number(statement)] === choice) this.pendingRatings.delete(key);
           }
           return this.render();
         case "error":
@@ -278,13 +295,22 @@
     render() {
       if (this.conn === "outdated") return;
       const live = this.state?.live ?? null;
+      if (this.showReceipt || live?.question.id === "revision-receipt") {
+        const key2 = "receipt|" + JSON.stringify(this.mine.review ?? []);
+        if (key2 !== this.viewKey) {
+          this.viewKey = key2;
+          this.main.replaceChildren(this.receiptView());
+        }
+        this.main.classList.remove("is-disabled");
+        return;
+      }
       if (!this.state) return;
       let key;
       if (!live) key = "waiting";
       else if (live.status === "open") key = `open|${JSON.stringify(live.question)}`;
       else {
-        const id = live.question.id;
-        key = `closed|${JSON.stringify([live, this.mine.votes[id], this.mine.answers[id], this.mine.ratings[id]])}`;
+        const id2 = live.question.id;
+        key = `closed|${JSON.stringify([live, this.mine.votes[id2], this.mine.answers[id2], this.mine.ratings[id2], this.mine.confidence?.[id2]])}`;
       }
       const rebuild = key !== this.viewKey;
       this.viewKey = key;
@@ -294,7 +320,7 @@
         return;
       }
       if (live.status === "open" && live.question.type === "poll") {
-        if (rebuild) this.main.replaceChildren(this.pollView(live.question.id, live.question.prompt, live.question.options));
+        if (rebuild) this.main.replaceChildren(this.pollView(live.question.id, live.question.prompt, live.question.options, live.question.confidence === true));
         this.updatePoll(live.question.id);
       } else if (live.status === "open" && live.question.type === "wordcloud") {
         if (rebuild) this.main.replaceChildren(this.cloudView(live.question));
@@ -303,7 +329,10 @@
         if (rebuild) this.main.replaceChildren(this.likertView(live.question));
         this.updateLikert(live.question);
       } else if (rebuild) {
-        this.main.replaceChildren(this.resultsView(live));
+        const results = this.resultsView(live);
+        const confidence2 = this.mine.confidence?.[live.question.id];
+        if (confidence2 !== void 0) results.append(h("p", { class: "hint" }, "Your confidence: " + ["Guessing", "Unsure", "Confident"][confidence2]));
+        this.main.replaceChildren(results);
       }
       if (rebuild) this.main.focus({ preventScroll: true });
     }
@@ -326,7 +355,7 @@
       );
     }
     // ---- poll
-    pollView(id, prompt, options) {
+    pollView(id2, prompt, options, confidence2) {
       const list = h("div", { class: "options", role: "radiogroup", "aria-label": prompt || "Options" });
       options.forEach((label, i) => {
         const btn = h(
@@ -336,7 +365,7 @@
           h("span", { class: "opt-label" }, h("span", { class: "mark" }, label)),
           h("span", { class: "opt-tag" }, "Your vote")
         );
-        btn.addEventListener("click", () => this.vote(id, i));
+        btn.addEventListener("click", () => this.vote(id2, i));
         list.append(btn);
       });
       list.addEventListener("keydown", (e) => {
@@ -353,21 +382,28 @@
         { class: "view" },
         this.header(prompt, "open", "Tap one. You can change your vote until voting closes."),
         list,
+        confidence2 ? this.confidenceView(id2) : null,
         h("p", { class: "saved", id: "saved", "aria-live": "polite" })
       );
     }
-    vote(id, choice) {
-      if (this.mine.votes[id] === choice && !this.pendingVote) return;
-      if (!this.send({ t: "vote", id, choice })) {
+    vote(id2, choice) {
+      if (this.mine.votes[id2] === choice && !this.pendingVote) return;
+      if (!this.send({ t: "vote", id: id2, choice })) {
         this.toast("You're offline. Tap again once you're reconnected.");
         return;
       }
-      this.pendingVote = { id, choice };
-      this.updatePoll(id);
+      this.pendingVote = { id: id2, choice };
+      this.updatePoll(id2);
     }
-    updatePoll(id) {
-      const confirmed = this.mine.votes[id];
-      const shown = this.pendingVote?.id === id ? this.pendingVote.choice : confirmed;
+    updatePoll(id2) {
+      const confirmed = this.mine.votes[id2];
+      this.main.querySelectorAll(".confidence-choice").forEach((btn) => {
+        btn.disabled = confirmed === void 0 || this.pendingVote !== null;
+        btn.setAttribute("aria-pressed", String(!this.pendingVote && this.mine.confidence?.[id2] === Number(btn.dataset.confidence)));
+      });
+      const hint = this.main.querySelector(".confidence-saved");
+      if (hint) hint.textContent = this.pendingVote ? "Saving your answer\u2026" : confirmed === void 0 ? "Choose A\u2013D first." : this.mine.confidence?.[id2] === void 0 ? "How confident are you?" : "Confidence saved.";
+      const shown = this.pendingVote?.id === id2 ? this.pendingVote.choice : confirmed;
       const multiple = this.main.querySelectorAll(".option");
       let tabbable = false;
       multiple.forEach((btn) => {
@@ -382,8 +418,79 @@
       if (!tabbable && multiple[0]) multiple[0].tabIndex = 0;
       const saved = this.main.querySelector("#saved");
       if (saved) {
-        saved.textContent = this.pendingVote?.id === id ? "Sending\u2026" : confirmed !== void 0 ? `Vote saved: ${letter(confirmed)}` : "";
+        saved.textContent = this.pendingVote?.id === id2 ? "Sending\u2026" : confirmed !== void 0 ? `Vote saved: ${letter(confirmed)}` : "";
       }
+    }
+    confidenceView(id2) {
+      const group = h("div", { class: "confidence-options", role: "group", "aria-label": "Confidence in your answer" });
+      ["Guessing", "Unsure", "Confident"].forEach((label, choice) => {
+        const b = h("button", { class: "confidence-choice", type: "button", "data-confidence": choice, "aria-pressed": "false" }, label);
+        b.addEventListener("click", () => {
+          if (!this.send({ t: "confidence", id: id2, choice })) this.toast("Reconnect before saving confidence.");
+        });
+        group.append(b);
+      });
+      return h(
+        "div",
+        { class: "confidence-panel" },
+        h("h2", { class: "sub" }, "How confident are you?"),
+        group,
+        h("p", { class: "confidence-saved", "aria-live": "polite" })
+      );
+    }
+    receiptView() {
+      const rows = this.mine.review ?? [];
+      const view = h(
+        "section",
+        { class: "view receipt" },
+        h("h1", {}, "Your revision receipt"),
+        h("p", { class: "hint" }, "Based on answers revealed in this session. Only your own responses appear here. Keep using the same browser to return to it.")
+      );
+      if (!rows.length) {
+        view.append(h("p", {}, "Your receipt will fill in after answers are revealed. No results are available yet."));
+        return view;
+      }
+      const priorities = rows.filter((r) => r.choice !== null && (!r.correct || r.confidence === null || r.confidence < 2));
+      const missed = rows.filter((r) => r.choice === null);
+      const secure = rows.filter((r) => r.choice !== null && r.correct && r.confidence === 2);
+      view.append(h("p", { class: "receipt-summary" }, `${rows.filter((r) => r.choice !== null).length} attempted \xB7 ${rows.filter((r) => r.correct).length} correct \xB7 ${priorities.length} to revisit`));
+      const labels = ["Guessing", "Unsure", "Confident"];
+      const groups = [["Your revision priorities", priorities], ["Not attempted: check these too", missed], ["Correct and confident: maintain these", secure]];
+      const lines = ["DATA1x01 personal revision receipt", "", "Formative practice only. This is not a prediction of your exam mark."];
+      for (const [heading, items] of groups) {
+        if (!items.length) continue;
+        view.append(h("h2", {}, heading));
+        lines.push("", heading);
+        for (const r of items) {
+          const result = r.choice === null ? "Not attempted" : (r.correct ? "Correct" : "Incorrect") + " \xB7 " + (r.confidence === null ? "Confidence not recorded" : labels[r.confidence]);
+          const card = h("article", { class: "receipt-card" }, h("h3", {}, r.revision.topic), h("p", {}, result));
+          lines.push("", r.revision.topic + ": " + result);
+          for (const o of r.revision.outcomes) {
+            card.append(h("p", { class: "receipt-outcome" }, `${o.id}: ${o.text}`));
+            lines.push(o.id + ": " + o.text);
+          }
+          const links = h("ul", {});
+          for (const a of r.revision.resources) {
+            links.append(h("li", {}, h("a", { href: a.url, target: "_blank", rel: "noopener noreferrer" }, a.label)));
+            lines.push(a.label + ": " + a.url);
+          }
+          card.append(links);
+          view.append(card);
+        }
+      }
+      const save = h("button", { class: "send", type: "button" }, "Download my receipt (.txt)");
+      save.addEventListener("click", () => {
+        const u = URL.createObjectURL(new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" }));
+        const a = h("a", { href: u, download: "DATA1x01-revision-receipt.txt" });
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(u), 1e3);
+      });
+      view.append(
+        save,
+        h("p", { class: "hint" }, "Canvas links require your University login. Use these priorities alongside the full course revision material."),
+        h("a", { href: "/feedback/", target: "_blank", rel: "noopener noreferrer" }, "Give feedback on the session")
+      );
+      return view;
     }
     // ---- word cloud
     cloudView(q) {
@@ -423,7 +530,7 @@
         h("div", { class: "chips-wrap" }, h("h2", { class: "sub", id: "chips-title" }, "Your answers"), h("ul", { class: "chips", id: "chips", "aria-labelledby": "chips-title" }))
       );
     }
-    answer(id, maxWords, maxAnswers, input) {
+    answer(id2, maxWords, maxAnswers, input) {
       const n = normalizeAnswer(input.value, maxWords);
       if (!n) {
         this.toast("Type a word or two first.");
@@ -436,7 +543,7 @@
         input.select();
         return;
       }
-      const sent = this.mine.answers[id] ?? [];
+      const sent = this.mine.answers[id2] ?? [];
       if (sent.some((a) => a.toLowerCase() === n.key)) {
         this.toast("You already sent that one.");
         input.select();
@@ -446,15 +553,15 @@
         this.toast("You've used all your answers for this question.");
         return;
       }
-      if (!this.send({ t: "answer", id, text: input.value })) {
+      if (!this.send({ t: "answer", id: id2, text: input.value })) {
         this.toast("You're offline. Send again once you're reconnected.");
         return;
       }
       input.value = "";
       input.focus();
     }
-    updateCloud(id, maxAnswers) {
-      const sent = this.mine.answers[id] ?? [];
+    updateCloud(id2, maxAnswers) {
+      const sent = this.mine.answers[id2] ?? [];
       const chips = this.main.querySelector("#chips");
       if (chips) {
         const before = chips.children.length;
@@ -561,6 +668,7 @@
           many ? "Rate each statement. You can change a rating until voting closes." : "Tap one. You can change it until voting closes."
         ),
         list,
+        confidence ? this.confidenceView(id) : null,
         h("p", { class: "saved", id: "saved", "aria-live": "polite" })
       );
     }
