@@ -1063,3 +1063,5 @@ input {
 .confidence-saved{font-size:.9rem}.receipt-toggle{display:block;margin:14px auto}.receipt h2{font-size:1.25rem;margin-top:28px}.receipt h3{font-size:1.1rem;margin:0 0 8px}.receipt-card{border-left:4px solid #427b7b;padding:14px 18px;margin:16px 0;background:#f2f7f6;color:#172e30}.receipt-card p{margin:8px 0}.receipt-outcome{font-size:.9rem}.receipt-card a{color:#005f68;text-decoration:underline}.receipt-summary{font-weight:700}.receipt .send{margin:20px 0}
 
 .feedback-page{max-width:650px;margin:60px auto;padding:24px}
+
+.receipt-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.receipt-email{display:inline-block;border:1px solid #146c72;color:#146c72;border-radius:12px;font-weight:700;text-decoration:none;padding:16px 20px}.receipt-actions .send{margin:12px 0}

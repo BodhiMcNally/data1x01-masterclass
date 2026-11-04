@@ -197,7 +197,7 @@ SA1 (4 marks, LO2/LO9): 1 for identifying causal overstatement, 1 for lack of al
 
 SA2 (4 marks, LO7/LO8): 1 for conditioning on independence, 1 for chi-squared 16.543 or larger, 1 for p < .05 plus rejection and 1 for evidence of association between the named variables. Expected counts, chi-squared calculation and df are supplied as supporting working, rather than extra marked requirements.
 
-SA3 (5 marks, LO3 and LO10 reporting component): 1 for a question with all three variables, 1 for a scatterplot with labelled quantitative axes, 1 for a caffeine key, 1 for correct data/x/y mapping and 1 for geom_point plus caffeine mapped to colour or shape. A labelled schematic is enough. Equivalent coherent questions and mappings receive credit. This task does not by itself assess LO10 teamwork, oral presentation or interrogation.
+SA3 (6 marks, LO3 and LO10 reporting component): 1 for a question with all three variables, 1 for a scatterplot with labelled quantitative axes, 1 for a caffeine key, 1 for loading tidyverse with library(tidyverse), 1 for correct data/x/y mapping and 1 for geom_point plus caffeine mapped to colour or shape. A labelled schematic is enough. Equivalent coherent questions and mappings receive credit. This task does not by itself assess LO10 teamwork, oral presentation or interrogation.
 
 The practice extended answer uses report criticism, p-value correction, graphical R code and a three-variable question. These tasks combine those demands in the sleep story without reproducing its question text. No official detailed marking scheme was linked on the current preparation page.
 

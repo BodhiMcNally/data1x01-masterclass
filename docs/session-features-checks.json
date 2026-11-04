@@ -8,5 +8,10 @@
   "receiptDownload": true,
   "qrDestination": true,
   "feedbackRedirect": true,
+  "fullscreen": true,
+  "confidencePercentages": true,
+  "confidenceGap": true,
+  "emailWithoutAddressCollection": true,
+  "sa3TidyverseMark": true,
   "errors": []
 }

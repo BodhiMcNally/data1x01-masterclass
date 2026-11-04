@@ -57,3 +57,14 @@ const response = await app.request('http://test/slides/');
 assert.equal(response.status,200);assert.equal(await response.text(),'/slides/index.html');
 assert.equal(response.headers.get('Content-Security-Policy'),null,'self-contained deck retains its inline scripts');
 assert.equal((await app.request('http://test/feedback/')).status,200);
+
+import {receiptMailto} from '../audience/receipt-email';
+const example = {id:'vote-q1',prompt:'Practice',revision,choice:0,correct:false,confidence:0 as const};
+const recipientFree = receiptMailto('A short receipt', [example], 'https://example.test/s/test?receipt=1');
+assert.ok(recipientFree.startsWith('mailto:?subject='));
+assert.equal(new URL(recipientFree).pathname,'','the email recipient is entered only in the student email app');
+assert.equal(new URL(recipientFree).searchParams.get('body'),'A short receipt');
+const longEmail = receiptMailto('Long receipt '.repeat(1000), Array(13).fill(example), 'https://example.test/s/test?receipt=1');
+assert.ok(longEmail.length <= 1900,'email links fit common mail handler limits');
+assert.match(new URL(longEmail).searchParams.get('body')!,/same browser/);
+assert.match(new URL(longEmail).searchParams.get('body')!,/LO2/);

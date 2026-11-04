@@ -25,4 +25,4 @@ Academic sources are listed in source-manifest.csv and Question_QA.md. Retrieval
 
 Presentation runtime: Quarto and reveal.js. See THIRD_PARTY_NOTICES.txt. The deck uses a University-inspired palette without a University crest or endorsement claim.
 
-The Notion-style error-log screenshot is an original interface mockup generated from resources/error-log-mockup.html. It is labelled as a mockup and is not a capture of a real account. The CSV is an editable template. No Notion logo or user database was used.
+The Notion-style error-log screenshot is an original interface mockup generated from resources/error-log-mockup.html. It is an illustrative interface rather than a capture of a real account. The CSV is an editable template. No Notion logo or user database was used.

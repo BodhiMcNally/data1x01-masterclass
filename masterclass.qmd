@@ -51,7 +51,7 @@ Tuesday 10 November 2026
 
 {{< include voting-controls.html >}}
 
-<div id="audience-join" class="audience-join" hidden><strong>Join the live questions</strong><div class="join-qr"></div><p>Scan once. Your phone follows each question.</p></div>
+<div id="audience-join" class="audience-join" hidden><strong>Join the live questions</strong><div class="join-qr"></div></div>
 
 ::: {.societies}
 ::: {.society}
@@ -1406,13 +1406,13 @@ Since p < 0.05, reject the null of independence. The data provide evidence of an
 
 ## Short answer 3: a question, a plot and code {#s24 .short-question}
 
-[5 marks]{.marks}
+[6 marks]{.marks}
 
 Propose a research question involving **Sleep**, **Score** and **Caffeine**.
 
 Sketch a suitable graphical summary. Label its axes and show how the third variable is represented.
 
-Write ggplot code that would produce the plot. Assume `students` is the data frame and ggplot2 is loaded.
+Write ggplot code that would produce the plot. Assume `students` is the data frame. Include the code to load **tidyverse**.
 
 Sleep and Score are quantitative. Caffeine is a factor with levels “0”, “1” and “2+”. A labelled schematic sketch is sufficient.
 
@@ -1423,6 +1423,8 @@ Sleep and Score are quantitative. Caffeine is a factor with levels “0”, “1
 **Research question:** How does the association between sleep and quiz score vary across caffeine categories?
 
 ```r
+library(tidyverse)
+
 ggplot(students,
        aes(x = Sleep, y = Score,
            colour = Caffeine, shape = Caffeine)) +
@@ -1431,12 +1433,14 @@ ggplot(students,
        y = "Practice Quiz Score (marks)")
 ```
 
-::: {.marking .rubric-five .fragment}
+::: {.marking .rubric-six .fragment}
 **1 mark:** research question uses all three variables.
 
 **1 mark:** scatterplot with labelled Sleep and Score axes.
 
 **1 mark:** clear key for caffeine categories.
+
+**1 mark:** load tidyverse with `library(tidyverse)`.
 
 **1 mark:** correct data frame and x/y mapping in `ggplot()`.
 
@@ -1528,12 +1532,10 @@ Explain a term to the person next to you, then check the definition.
 
 ## An error log that helps next time {#error-log .error-log}
 
-<img class="error-log-image" src="assets/error-log-notion-mockup.png" alt="Notion-style mockup of a DATA1001 error log with conditional probability, transformations and changed-null test examples.">
-
-Write the rule that fixes the mistake. Reattempt a similar question later without looking at the answer.
+<img class="error-log-image" src="assets/error-log-notion-mockup.png" alt="DATA1001 error log with conditional probability, transformations and changed-null test examples.">
 
 
-<footer class="slide-source">Notion-style mockup with original DATA1001 practice examples · Feedback and correction: <a href="https://doi.org/10.3758/MC.36.3.604">Butler &amp; Roediger (2008)</a></footer>
+<footer class="slide-source">DATA1001 error log · Feedback and correction: <a href="https://doi.org/10.3758/MC.36.3.604">Butler &amp; Roediger (2008)</a></footer>
 
 ## Revision after today {#s29 }
 
@@ -1557,7 +1559,7 @@ Your phone now shows your own revision priorities.
 
 - Revisit incorrect answers and answers you were unsure about.
 - Follow the linked **Canvas topics** and **learning outcomes**.
-- **Download your receipt** before you leave.
+- **Download or email your receipt** before you leave.
 
 [Keep using the same browser. The receipt includes revealed MCQs, not the short-answer tasks, and is not a prediction of your exam mark.]{.small .muted}
 

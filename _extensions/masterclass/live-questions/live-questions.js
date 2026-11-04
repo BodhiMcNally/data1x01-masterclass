@@ -2607,7 +2607,8 @@
       }
       if (summary2) {
         summary2.hidden = !c || !this.resultsVisible();
-        summary2.textContent = c ? `Confidence (${c.answered}/${voters}): Guessing ${c.counts[0]} \xB7 Unsure ${c.counts[1]} \xB7 Confident ${c.counts[2]}` + (c.confidentlyIncorrect === null ? "" : ` \xB7 Confident + incorrect: ${c.confidentlyIncorrect}`) : "";
+        summary2.textContent = c ? ["Guessing", "Unsure", "Confident"].map((label, i) => `${label} ${c.answered ? Math.round(100 * c.counts[i] / c.answered) + "%" : "\u2014"}`).join(" \xB7 ") : "";
+        summary2.title = "Percentage of students who recorded a confidence rating.";
       }
     }
     /** `T`: flip results visibility on this slide. */

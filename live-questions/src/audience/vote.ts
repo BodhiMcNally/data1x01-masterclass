@@ -4,6 +4,7 @@
  * One WebSocket per page. The phone follows whatever question the deck makes
  * live. All server-provided text reaches the DOM through `textContent` only.
  */
+import { receiptMailto } from "./receipt-email";
 import { normalizeAnswer } from "../shared/normalize";
 import {
   LIMITS,
@@ -137,7 +138,7 @@ class VotePage {
   private pendingRatings = new Map<string, number>();
   /** Identity of the view currently in the DOM; rebuilt only when it changes. */
   private viewKey = "";
-  private showReceipt = false;
+  private showReceipt = new URLSearchParams(location.search).get("receipt") === "1";
   private toastTimer: number | undefined;
   private readonly voter = voterId();
 
@@ -153,7 +154,7 @@ class VotePage {
       if (document.visibilityState === "visible" && this.conn === "offline") this.connectNow();
     });
     window.addEventListener("online", () => this.conn === "offline" && this.connectNow());
-    const receipt = h("button", { class: "receipt-toggle", type: "button" }, "My revision receipt");
+    const receipt = h("button", { class: "receipt-toggle", type: "button" }, this.showReceipt ? "Back to live voting" : "My revision receipt");
     receipt.addEventListener("click", () => { this.showReceipt = !this.showReceipt; this.viewKey = ""; this.render(); receipt.textContent = this.showReceipt ? "Back to live voting" : "My revision receipt"; });
     this.main.before(receipt);
     this.connect();
@@ -195,9 +196,6 @@ class VotePage {
   private connectNow(): void {
     if (this.ws) return;
     this.retry = 0;
-    const receipt = h("button", { class: "receipt-toggle", type: "button" }, "My revision receipt");
-    receipt.addEventListener("click", () => { this.showReceipt = !this.showReceipt; this.viewKey = ""; this.render(); receipt.textContent = this.showReceipt ? "Back to live voting" : "My revision receipt"; });
-    this.main.before(receipt);
     this.connect();
   }
 
@@ -472,7 +470,11 @@ class VotePage {
     }
     const save = h("button", { class: "send", type: "button" }, "Download my receipt (.txt)");
     save.addEventListener("click", () => { const u=URL.createObjectURL(new Blob([lines.join("\n")], {type:"text/plain;charset=utf-8"})); const a=h("a",{href:u,download:"DATA1x01-revision-receipt.txt"}); a.click(); setTimeout(()=>URL.revokeObjectURL(u),1000); });
-    view.append(save, h("p", { class: "hint" }, "Canvas links require your University login. Use these priorities alongside the full course revision material."),
+    const receiptUrl = `${location.origin}/s/${encodeURIComponent(this.session)}?receipt=1`;
+    const email = h("a", {class:"receipt-email", href:receiptMailto(lines.join("\n"), rows, receiptUrl)}, "Email my receipt");
+    view.append(h("div", {class:"receipt-actions"}, save, email),
+      h("p", {class:"hint"}, "Email opens your own email app. Enter your address there; this site does not collect it. You can attach the downloaded receipt for a full copy."),
+      h("p", { class: "hint" }, "Canvas links require your University login. Use these priorities alongside the full course revision material."),
       h("a", { href: "/feedback/", target: "_blank", rel: "noopener noreferrer" }, "Give feedback on the session"));
     return view;
   }

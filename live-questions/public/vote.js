@@ -1,4 +1,32 @@
 (() => {
+  // src/audience/receipt-email.ts
+  function receiptMailto(fullText, rows, receiptUrl) {
+    const subject = "My DATA1x01 revision receipt";
+    const link = (body) => `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (link(fullText).length <= 1900) return link(fullText);
+    const priorities = rows.filter((r) => r.choice === null || !r.correct || r.confidence === null || r.confidence < 2);
+    const lines = [
+      "My DATA1x01 revision receipt",
+      `${rows.filter((r) => r.choice !== null).length} attempted; ${rows.filter((r) => r.correct).length} correct.`,
+      "",
+      `Full receipt (open in the same browser used for voting): ${receiptUrl}`,
+      "For a complete email copy, attach the downloaded receipt text file.",
+      "",
+      "Revision priorities:"
+    ];
+    let included = 0;
+    for (const r of priorities) {
+      const result = r.choice === null ? "Not attempted" : `${r.correct ? "Correct" : "Incorrect"}; ${r.confidence === null ? "confidence not recorded" : ["Guessing", "Unsure", "Confident"][r.confidence]}`;
+      const entry = `${r.revision.topic}: ${result} (${r.revision.outcomes.map((o) => o.id).join(", ")})`;
+      if (link([...lines, entry, "Additional topics and Canvas links are in the full receipt."].join("\n")).length > 1900) break;
+      lines.push(entry);
+      included++;
+    }
+    if (included < priorities.length) lines.push("Additional topics and Canvas links are in the full receipt.");
+    if (!priorities.length) lines.push("All recorded answers were correct and confident.");
+    return link(lines.join("\n"));
+  }
+
   // src/shared/protocol.ts
   var PROTOCOL_VERSION = 1;
   var LIMITS = {
@@ -134,7 +162,7 @@
         if (document.visibilityState === "visible" && this.conn === "offline") this.connectNow();
       });
       window.addEventListener("online", () => this.conn === "offline" && this.connectNow());
-      const receipt = h("button", { class: "receipt-toggle", type: "button" }, "My revision receipt");
+      const receipt = h("button", { class: "receipt-toggle", type: "button" }, this.showReceipt ? "Back to live voting" : "My revision receipt");
       receipt.addEventListener("click", () => {
         this.showReceipt = !this.showReceipt;
         this.viewKey = "";
@@ -157,7 +185,7 @@
     pendingRatings = /* @__PURE__ */ new Map();
     /** Identity of the view currently in the DOM; rebuilt only when it changes. */
     viewKey = "";
-    showReceipt = false;
+    showReceipt = new URLSearchParams(location.search).get("receipt") === "1";
     toastTimer;
     voter = voterId();
     main = document.getElementById("main");
@@ -196,14 +224,6 @@
     connectNow() {
       if (this.ws) return;
       this.retry = 0;
-      const receipt = h("button", { class: "receipt-toggle", type: "button" }, "My revision receipt");
-      receipt.addEventListener("click", () => {
-        this.showReceipt = !this.showReceipt;
-        this.viewKey = "";
-        this.render();
-        receipt.textContent = this.showReceipt ? "Back to live voting" : "My revision receipt";
-      });
-      this.main.before(receipt);
       this.connect();
     }
     send(msg) {
@@ -485,8 +505,11 @@
         a.click();
         setTimeout(() => URL.revokeObjectURL(u), 1e3);
       });
+      const receiptUrl = `${location.origin}/s/${encodeURIComponent(this.session)}?receipt=1`;
+      const email = h("a", { class: "receipt-email", href: receiptMailto(lines.join("\n"), rows, receiptUrl) }, "Email my receipt");
       view.append(
-        save,
+        h("div", { class: "receipt-actions" }, save, email),
+        h("p", { class: "hint" }, "Email opens your own email app. Enter your address there; this site does not collect it. You can attach the downloaded receipt for a full copy."),
         h("p", { class: "hint" }, "Canvas links require your University login. Use these priorities alongside the full course revision material."),
         h("a", { href: "/feedback/", target: "_blank", rel: "noopener noreferrer" }, "Give feedback on the session")
       );

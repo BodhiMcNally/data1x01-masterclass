@@ -139,8 +139,9 @@ export class QuestionView {
     if (c && !summary) { summary = h("div", { class: "lq-confidence-summary" }); this.main.append(summary); }
     if (summary) {
       summary.hidden = !c || !this.resultsVisible();
-      summary.textContent = c ? `Confidence (${c.answered}/${voters}): Guessing ${c.counts[0]} · Unsure ${c.counts[1]} · Confident ${c.counts[2]}` +
-        (c.confidentlyIncorrect === null ? "" : ` · Confident + incorrect: ${c.confidentlyIncorrect}`) : "";
+      summary.textContent = c ? ['Guessing', 'Unsure', 'Confident'].map((label, i) =>
+        `${label} ${c.answered ? Math.round(100 * c.counts[i]! / c.answered) + '%' : '—'}`).join(' · ') : '';
+      summary.title = 'Percentage of students who recorded a confidence rating.';
     }
   }
 
