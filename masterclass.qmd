@@ -406,7 +406,133 @@ $$\overline{\text{SleepIndex}}=-4,\qquad s_{\text{SleepIndex}}=2.4,\qquad r=-0.4
 ::: {.question-panel}
 Assume $X\sim N(7,1.2^2)$ models nightly sleep. **Which R expression calculates $P(5.8<X<9.4)$?**
 
-<img src="figures/normal_interval.png" alt="Normal density with the sleep interval 5.8 to 9.4 hours shaded.">
+```{=html}
+<div id="sleep-density">
+  <img id="sleep-density-original" src="figures/normal_interval.png" alt="Normal density with the sleep interval 5.8 to 9.4 hours shaded.">
+  <button type="button" id="sleep-rule-toggle" aria-expanded="false" aria-controls="sleep-rule-panel">Show empirical rule</button>
+  <div id="sleep-rule-panel" hidden>
+    <div class="sleep-rule-presets" aria-label="Central intervals">
+      <button type="button" data-sd="1">±1 SD · 68%</button>
+      <button type="button" data-sd="2">±2 SD · 95%</button>
+      <button type="button" data-sd="3">±3 SD · 99.7%</button>
+    </div>
+    <svg viewBox="0 0 530 126" role="img" aria-label="Normal density with empirical-rule thresholds and selected area">
+      <title>Sleep duration in hours</title>
+    </svg>
+    <div class="sleep-rule-bounds">
+      <label>From <select id="sleep-rule-low"></select></label>
+      <label>to <select id="sleep-rule-high"></select></label>
+    </div>
+    <output aria-live="polite"></output>
+  </div>
+</div>
+<style>
+  #sleep-density { font-size: 16px; line-height: 1.3; }
+  #sleep-density [hidden] { display: none !important; }
+  #sleep-density img { display: block; }
+  #sleep-density button, #sleep-density select {
+    font: inherit;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--teal);
+    border-radius: 5px;
+    padding: 4px 8px;
+  }
+  #sleep-density button { cursor: pointer; }
+  #sleep-density :focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+  #sleep-rule-panel { margin-top: 5px; }
+  #sleep-rule-panel svg { display: block; width: 100%; height: auto; max-height: 140px; }
+  #sleep-rule-panel output { display: block; margin-top: 4px; font-weight: 700; }
+  .sleep-rule-bounds, .sleep-rule-presets { display: flex; align-items: center; gap: 8px; }
+  @media print {
+    #sleep-density-original { display: block !important; }
+    #sleep-rule-toggle, #sleep-rule-panel { display: none !important; }
+  }
+</style>
+<script>
+(() => {
+  const widget = document.getElementById('sleep-density');
+  const original = widget.querySelector('img');
+  const toggle = widget.querySelector('button');
+  const panel = widget.querySelector('#sleep-rule-panel');
+  const svg = panel.querySelector('svg');
+  const output = panel.querySelector('output');
+  const low = panel.querySelector('#sleep-rule-low');
+  const high = panel.querySelector('#sleep-rule-high');
+  const thresholds = [
+    { z: -Infinity, hours: '−∞', area: 0 },
+    { z: -3, hours: '3.4', area: 0.15 },
+    { z: -2, hours: '4.6', area: 2.5 },
+    { z: -1, hours: '5.8', area: 16 },
+    { z: 0, hours: '7.0', area: 50 },
+    { z: 1, hours: '8.2', area: 84 },
+    { z: 2, hours: '9.4', area: 97.5 },
+    { z: 3, hours: '10.6', area: 99.85 },
+    { z: Infinity, hours: '∞', area: 100 }
+  ];
+  const format = value => Number(value.toFixed(2)).toString();
+  for (const select of [low, high]) {
+    thresholds.forEach(({ hours, z }, index) => {
+      const suffix = Number.isFinite(z) ? (z === 0 ? ' (mean)' : ' (' + (z > 0 ? '+' : '') + z + ' SD)') : '';
+      select.add(new Option(hours + suffix, index));
+    });
+  }
+  low.value = 3;
+  high.value = 6;
+  const x = z => 265 + z * 60;
+  const y = z => 93 - 78 * Math.exp(-z * z / 2);
+  const curve = (start, end) => Array.from({ length: 81 }, (_, index) => {
+    const z = start + (end - start) * index / 80;
+    return x(z).toFixed(2) + ',' + y(z).toFixed(2);
+  }).join(' L');
+  const guides = thresholds.filter(({ z }) => Number.isFinite(z)).map(({ z, hours }) =>
+    '<line x1="' + x(z) + '" y1="10" x2="' + x(z) + '" y2="93" stroke="#a7b2b4" stroke-dasharray="3 4"/>' +
+    '<text x="' + x(z) + '" y="111" text-anchor="middle" font-size="15">' + hours + '</text>'
+  ).join('');
+
+  function render() {
+    const a = thresholds[Number(low.value)];
+    const b = thresholds[Number(high.value)];
+    const start = Math.max(-4.2, a.z);
+    const end = Math.min(4.2, b.z);
+    svg.innerHTML = '<title>Normal density of nightly sleep in hours</title>' + guides +
+      '<path d="M' + x(start) + ',93 L' + curve(start, end) + ' L' + x(end) + ',93 Z" fill="#84c5bd"/>' +
+      '<path d="M' + curve(-4.2, 4.2) + '" fill="none" stroke="#146c72" stroke-width="2.5"/>' +
+      '<path d="M13,93 H517" stroke="#59666d"/>';
+    output.textContent = 'Approx. probability: ' + format(b.area) + '% − ' +
+      format(a.area) + '% = ' + format(b.area - a.area) + '%';
+  }
+
+  function updateBounds() {
+    Array.from(low.options).forEach(option => { option.disabled = Number(option.value) >= Number(high.value); });
+    Array.from(high.options).forEach(option => { option.disabled = Number(option.value) <= Number(low.value); });
+    render();
+  }
+
+  toggle.addEventListener('click', () => {
+    const open = panel.hidden;
+    panel.hidden = !open;
+    original.hidden = open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Show original density plot' : 'Show empirical rule';
+  });
+  panel.querySelectorAll('[data-sd]').forEach(button => button.addEventListener('click', () => {
+    const sd = Number(button.dataset.sd);
+    low.value = 4 - sd;
+    high.value = 4 + sd;
+    updateBounds();
+  }));
+  low.addEventListener('change', updateBounds);
+  high.addEventListener('change', updateBounds);
+  widget.addEventListener('keydown', event => {
+    if (event.target.matches('button, select') && [' ', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
+      event.stopPropagation();
+    }
+  });
+  updateBounds();
+})();
+</script>
+```
 :::
 
 ::: {.choices}
